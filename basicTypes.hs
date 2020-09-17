@@ -16,7 +16,8 @@ sayMe x = "Not between 1 and 5"
 addThree :: Int -> Int -> Int -> Int  
 addThree x y z = x + y + z  
 
-factorial :: Integer -> Integer  
+factorial :: (Integral a) => a -> a  
+factorial 0 = 1;
 factorial n = product [1..n] 
 
 -- :t head
@@ -54,3 +55,9 @@ factorial n = product [1..n]
 
 
 -- ah great, this Num is a great example of typeclass and helps me grasp the concept!
+
+
+-- wildcard `_' type
+-- glad to see that lying to the compiler like this results in a good error
+firstTuple :: (_, b, _) -> b
+firstTuple (x, _, _ ) = x;
