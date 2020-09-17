@@ -149,3 +149,7 @@ max_a :: Ord a => [a] -> a
 max_a [] = error "empty list"
 max_a [x] = x
 max_a (x:xs) = max x (max_a xs)
+
+replicate_ n c 
+    | c <= 0 = []
+    | otherwise = n:replicate_ n (c-1)
