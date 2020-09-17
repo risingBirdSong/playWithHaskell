@@ -148,3 +148,4 @@ zippedNumStr =  zip [1 .. 5] ["one", "two", "three", "four", "five"]
 -- wow this is short, elegant, get a lot from a little!
 triangles = [ (a,b,c) | c <- [1..10], b <- [1..10], a <- [1..10] ]  
 rightTriangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2] 
+
