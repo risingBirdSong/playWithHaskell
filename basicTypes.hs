@@ -93,3 +93,19 @@ tell (x:xs) = "the list has a length of " ++ show (length xs + 1)
 
 
 -- showlength xs = show getLength xs
+
+length' [] = 0;
+length' (_:xs) = 1 + length' xs
+
+sum_ [] = 0
+sum_ (x:xs) = x + sum_(xs)
+
+-- patterns
+sayAll "" = "empty string"
+sayAll all@(x:xs) = "say " ++ all ++ " single " ++ [x]
+
+guardPractice compare 
+    |  compare <= 10 = "less than ten"
+    |  compare <= 30 = "between 10 and 30"
+    |  compare <= 100 = "between 30 and 100"  
+    |  otherwise = "over 100"
