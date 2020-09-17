@@ -58,6 +58,6 @@ factorial n = product [1..n]
 
 
 -- wildcard `_' type
--- glad to see that lying to the compiler like this results in a good error
-firstTuple :: (_, b, _) -> b
-firstTuple (x, _, _ ) = x;
+-- another lie caught by compiler with high quality error
+firstTuple :: (a, b , c) -> b
+firstTuple (x, _ , _ ) = x;
