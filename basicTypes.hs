@@ -80,3 +80,16 @@ thirdTuple (_,_,z) = z;
 header :: [a] -> a
 header [] = error "empty list!"
 header (x:_) = x
+
+getLength xs = sum [1 | _ <- xs]
+
+tell [] = "The list is empty"  
+tell (x:[]) = "The list has one element: " ++ show x  
+tell (x:y:[]) = "the List has two elements" ++ show x ++ " and " ++ show y
+-- thanks Riuga on Discord showed me error, I wasnt using parens() to wrap expression
+-- compiler is interpreting -> (show length) xs , which is wrong 
+tell (x:xs) = "the list has a length of " ++ show (length xs + 1)
+
+
+
+-- showlength xs = show getLength xs
