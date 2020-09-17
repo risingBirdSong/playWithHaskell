@@ -58,6 +58,25 @@ factorial n = product [1..n]
 
 
 -- wildcard `_' type
--- another lie caught by compiler with high quality error
-firstTuple :: (a, b , c) -> b
+firstTuple :: (a, b , c) -> a
 firstTuple (x, _ , _ ) = x;
+
+secondTuple (_, b, _) = b;
+
+thirdTuple (_,_,z) = z;
+
+-- well said and important
+-- A pattern like x:xs will bind the head of the list to x and the rest of it to xs
+-- The x:xs pattern is used a lot, especially with recursive functions.
+
+-- If you want to bind, say, the first three elements to variables and the rest of the list to another variable, you can use something like x:y:z:zs. It will only match against lists that have three elements or more.
+
+-- i tried to return a string rather than error but this doesnt work becuase it infers to be string array...
+-- can this be done? but perhaps we want the error? I think so! Because then when our program compiles we can have much more confidence in it
+-- head' :: [a] -> a  
+-- head' [] = "empty list"  
+-- head' (x:_) = x  
+
+header :: [a] -> a
+header [] = error "empty list!"
+header (x:_) = x
