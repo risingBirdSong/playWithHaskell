@@ -150,6 +150,23 @@ max_a [] = error "empty list"
 max_a [x] = x
 max_a (x:xs) = max x (max_a xs)
 
+-- the type inferred by compiler
+replicate_ :: (Ord t, Num t, Num a) => a -> t -> [a]
 replicate_ n c 
     | c <= 0 = []
-    | otherwise = n:replicate_ n (c-1)
+    | otherwise = n:replicate_ (n) (c-1)
+
+    -- interesting insight and explanation
+-- We used guards here instead of patterns because we're testing for a boolean condition. If n is less than or equal to 0, return an empty list. Otherwise return a list that has x as the first element and then x replicated n-1 times as the tail. Eventually, the (n-1) part will cause our function to reach the edge condition.
+
+
+-- Question on this note but why isnt num a sublass of Ord? Because all nums are orderable.
+-- Note: Num is not a subclass of Ord. That means that what constitutes for a number doesn't really have to adhere to an ordering. So that's why we have to specify both the Num and Ord class constraints when doing addition or subtraction and also comparison.
+
+-- first attempt at sig
+-- take_ :: (Num t, Num [t]) -> [t] 
+
+take_ n xs 
+    | n <= 0 = []
+take_ _ [] = []
+take_ n (x:xs) = x:take_ (n-1) xs
