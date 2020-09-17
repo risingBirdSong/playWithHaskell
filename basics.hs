@@ -125,3 +125,26 @@ drawingFromMultipleListsWithPredB = [ x*y | x <- [2,4,6], y <- [3,6,9], x+y/= 5]
 
             -- ignore \/
 length' xs = sum [1 | _ <- xs]  
+-- length' [1..14] -> 14
+
+-- Just a friendly reminder: because strings are lists, we can use list comprehensions to process and produce strings. Here's a function that takes a string and removes everything except uppercase letters from it.
+
+-- ah wow so can use these list comps on strings as well, nice
+removeNonUppercase st = [ c | c <- st, c `elem` ['A'..'Z']]   
+-- "aAbBcCeEdDqQ" -> "ABCEDQ"
+
+nestedNums = [[1,3,5,2,3,1,2,4,5],[1,2,3,4,5,6,7,8,9],[1,2,4,2,1,6,3,1,3,2,3,6]]
+evensFromNestedNums xxs = [ [ x | x <- xs, even x ] | xs <- xxs] 
+-- very elegant code
+
+zipped = zip [1,2,3,4,5] [5,5,5,5,5]  
+-- [(1,5),(2,5),(3,5),(4,5),(5,5)]
+
+zippedNumStr =  zip [1 .. 5] ["one", "two", "three", "four", "five"] 
+
+-- zippedThreeSource = zip [1,2,3,4,5] [5,4,3,2,1] [10,20,30,40,50]
+-- apparently cant zip with other than 2 source
+
+-- wow this is short, elegant, get a lot from a little!
+triangles = [ (a,b,c) | c <- [1..10], b <- [1..10], a <- [1..10] ]  
+rightTriangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2] 
