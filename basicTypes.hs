@@ -133,10 +133,19 @@ calcBmis_a xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2, bmi >= 25.0]
 
 -- If let bindings are so cool, why not use them all the time instead of where bindings, you ask? Well, since let bindings are expressions and are fairly local in their scope, they can't be used across guards. Some people prefer where bindings because the names come after the function they're being used in. That way, the function body is closer to its name and type declaration and to some that's more readable.
 
-
+maximum' :: Ord a => [a] -> a
 maximum' [] = error "error no list"
 maximum' [x] = x;
 maximum' (x:xs) 
   | x > maxTail = x
   | otherwise = maxTail
   where maxTail = maximum' xs
+
+  -- how this is working internally
+
+  -- Let's take an example list of numbers and check out how this would work on them: [2,5,1]. If we call maximum' on that, the first two patterns won't match. The third one will and the list is split into 2 and [5,1]. The where clause wants to know the maximum of [5,1], so we follow that route. It matches the third pattern again and [5,1] is split into 5 and [1]. Again, the where clause wants to know the maximum of [1]. Because that's the edge condition, it returns 1. Finally! So going up one step, comparing 5 to the maximum of [1] (which is 1), we obviously get back 5. So now we know that the maximum of [5,1] is 5. We go up one step again where we had 2 and [5,1]. Comparing 2 with the maximum of [5,1], which is 5, we choose 5.
+
+max_a :: Ord a => [a] -> a
+max_a [] = error "empty list"
+max_a [x] = x
+max_a (x:xs) = max x (max_a xs)
