@@ -83,7 +83,7 @@ coolStepByThrees = [3,6..20];
 stepDownwards = [20,19..1]
 
 -- so cool!
-infiniteList = [2,4.. ]
+-- infiniteList = [2,4.. ]
 
 aNumCycle = take 10 (cycle [1,2,3])  
 
@@ -106,3 +106,22 @@ listCompInfixMod = [ x | x <- [50..100], x `mod` 7 == 0]
 oddRange = [x | x <- [1..20], odd x]
 
 customOddRange x xs = [x | x <- [x..xs] , odd x]
+
+boomBangs xs = [ if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]   
+-- called like boomBangs [4..12]
+
+-- multiple predicates
+weCanSkipValues = [ x | x <- [10..20], x /= 13, x /= 15, x /= 19] 
+
+drawingFromMultipleLists = [ x*y | x <- [2,4,6], y <- [3,6,9]]  
+-- [6,12,18,12,24,36,18,36,54]
+-- length * length -> 3 * 3 -> 9
+
+-- we can also use a predicate
+drawingFromMultipleListsWithPred = [ x*y | x <- [2,4,6], y <- [3,6,9], x*y < 24]  
+-- [6,12,18,12,18]
+drawingFromMultipleListsWithPredA = [ x*y | x <- [2,4,6], y <- [3,6,9], x/= 4]  
+drawingFromMultipleListsWithPredB = [ x*y | x <- [2,4,6], y <- [3,6,9], x+y/= 5]  
+
+            -- ignore \/
+length' xs = sum [1 | _ <- xs]  
