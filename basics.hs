@@ -84,3 +84,25 @@ stepDownwards = [20,19..1]
 
 -- so cool!
 infiniteList = [2,4.. ]
+
+aNumCycle = take 10 (cycle [1,2,3])  
+
+stringCycle = take 7 (cycle ["lol"])
+
+listComprehension_a = [x*2 | x <- [1..10]]  
+listComprehension_b = [x*3 | x <- [10..20]]
+
+-- ah i first though <- was lesser or equal to, but its not... this explains
+-- https://stackoverflow.com/questions/28624408/equal-vs-left-arrow-symbols-in-haskell
+
+-- var action = function() { print(3); return 5; }
+--  roughly equivalent to x <- action
+--  var x = action()  // output:3
+listCompWithPred = [x*2 | x <- [1..10], x*2 >= 12] 
+
+listCompInfixMod = [ x | x <- [50..100], x `mod` 7 == 0] 
+
+-- oh thats neat
+oddRange = [x | x <- [1..20], odd x]
+
+customOddRange x xs = [x | x <- [x..xs] , odd x]
