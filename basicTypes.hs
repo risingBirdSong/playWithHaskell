@@ -198,3 +198,6 @@ infiniteloopAsList :: t -> [t]
 infiniteloopAsList x = x:infiniteloopAsList x 
 
 
+zip' _ [] = []
+zip' [] _ = []
+zip' (x:xs) (y:ys) = (x, y):zip' xs ys 
