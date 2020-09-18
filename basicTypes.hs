@@ -178,3 +178,23 @@ take_ n (x:xs) = x:take_ (n-1) xs
 reverse_a :: [a] -> [a]
 reverse_a [] = []
 reverse_a (x:xs) = reverse_a xs ++ [x]
+
+-- infinite list
+repeat' :: a -> [a]  
+repeat' x = x:repeat' x  
+
+-- this one is interesting because nothing about repeat' x explicitly suggests a list... but the x: before
+-- it, is this what treats it to act like a list?
+
+-- experiment ... a dumb infinite recurse without the x: prepending, lets look at the type.
+infiniteloop :: t1 -> t2
+infiniteloop x = infiniteloop x 
+
+-- cool, this makes sense, no list type... which means that the x: in repeat is what's responsible for 
+-- treating the output as a list. is a there a term for this? casting, coercion, deriving types? 
+
+-- inferred type is a list output, with the only difference we're prepending with x: , which is proof that syntax return the output as list type. 
+infiniteloopAsList :: t -> [t]
+infiniteloopAsList x = x:infiniteloopAsList x 
+
+
