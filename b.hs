@@ -259,5 +259,32 @@ veryInterestingRecursiveZip = zipWith' (zipWith' (*)) [[1,2,3],[3,5,6],[2,3,4]] 
 --     where f x y = g y x
 
 -- fixed, ensure the right assignment is defined first
+
+-- the inferred type
+flip' :: (t1 -> t2 -> t3) -> t2 -> t1 -> t3
 flip' f = g  
   where g x y = f y x  
+
+-- helps with the intuition of the flip
+-- (a -> b -> c) -> (b -> (a -> c)),
+
+-- ah a simpler implementation
+flip_ :: (a -> b -> c) -> b -> a -> c  
+flip_ f y x = f x y  
+
+-- to help understand the order of application and the flipping of flip
+
+natualOrderSubtract = (subtract) 7 5 -- -2
+-- we can see that 5 is the first argument, so 5 - 7 = -2
+flippedSubtract = flip_ subtract 7 5
+
+
+-- Here, we take advantage of the fact that functions are curried. When we call flip' f without the parameters y and x, it will return an f that takes those two parameters but calls them flipped. Even though flipped functions are usually passed to other functions, we can take advantage of currying when making higher-order functions by thinking ahead and writing what their end result would be if they were called fully applied.
+
+-- calling examples
+flipNZip = flip' zip [1,2,3,4,5] "hello"  
+zipFlipDiv =  zipWith (flip' div) [2,2..] [10,8,6,4,2]  
+
+map_ :: (a->b) -> [a] -> [b]
+map_  _ [] = []
+map_ f (x:xs) = f x : map_ f xs
