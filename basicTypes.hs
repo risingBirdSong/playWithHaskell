@@ -214,3 +214,33 @@ quicksort (x:xs) =
     let smallerSorted = quicksort [a | a <- xs, a <= x]  
         biggerSorted = quicksort [a | a <- xs, a > x]  
     in  smallerSorted ++ [x] ++ biggerSorted 
+
+
+
+-- higher order functions
+
+-- example
+-- max__ :: Ord a => a -> a -> a
+
+-- All the functions that accepted several parameters so far have been curried functions.
+
+-- and thats why we see a each type separated by ->, like max's a -> a -> a
+
+-- we can see that by supplying fewer arguments to a function
+curryTest = max 5
+maxResult = curryTest 10 
+-- results in 10
+
+
+-- the parens in the type signature means its a function.
+--   a function \/
+applyTwice :: (a->a) -> a -> a
+applyTwice f x = f(f x)
+
+addFiveTwice = applyTwice(+5)
+-- applyTwice (++ " haha ") "hello"
+-- "hello haha  haha "
+
+zipWith'  _ [] _ = []
+zipWith'  _ _ [] = []
+zipWith' f (x:xs) (y:ys) = ((f x) ,(f y)): zipWith' f xs ys 
