@@ -241,6 +241,13 @@ addFiveTwice = applyTwice(+5)
 -- applyTwice (++ " haha ") "hello"
 -- "hello haha  haha "
 
+
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]  
 zipWith'  _ [] _ = []
 zipWith'  _ _ [] = []
-zipWith' f (x:xs) (y:ys) = ((f x) ,(f y)): zipWith' f xs ys 
+zipWith' f (x:xs) (y:ys) = (f x y) : zipWith' f xs ys 
+
+two things, my crack at it was appending tuples with the func applied to each, here were just appending 
+straight list.
+and silly me, i had the function correct, but was calling it wrong with a bad func call. I was calling it
+with a func AND val like (+3) but no, we want just func, the val argumens come from the two lists
