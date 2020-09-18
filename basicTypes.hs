@@ -166,7 +166,15 @@ replicate_ n c
 -- first attempt at sig
 -- take_ :: (Num t, Num [t]) -> [t] 
 
+-- inferred type
+                  -- inputs  \/    \/      \/ output
+-- take_ :: (Ord t, Num t) => t -> [a] -> [a]
 take_ n xs 
     | n <= 0 = []
 take_ _ [] = []
 take_ n (x:xs) = x:take_ (n-1) xs
+
+-- inferred type
+reverse_a :: [a] -> [a]
+reverse_a [] = []
+reverse_a (x:xs) = reverse_a xs ++ [x]
