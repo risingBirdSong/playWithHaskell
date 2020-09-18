@@ -201,3 +201,16 @@ infiniteloopAsList x = x:infiniteloopAsList x
 zip' _ [] = []
 zip' [] _ = []
 zip' (x:xs) (y:ys) = (x, y):zip' xs ys 
+
+elem' val [] = False
+elem' val (x:xs) 
+    | (x == val) = True
+    | otherwise = elem' val xs
+
+
+quicksort :: (Ord a) => [a] -> [a]  
+quicksort [] = []  
+quicksort (x:xs) =   
+    let smallerSorted = quicksort [a | a <- xs, a <= x]  
+        biggerSorted = quicksort [a | a <- xs, a > x]  
+    in  smallerSorted ++ [x] ++ biggerSorted 
