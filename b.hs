@@ -288,3 +288,11 @@ zipFlipDiv =  zipWith (flip' div) [2,2..] [10,8,6,4,2]
 map_ :: (a->b) -> [a] -> [b]
 map_  _ [] = []
 map_ f (x:xs) = f x : map_ f xs
+
+-- interesting uses of map and other funcs
+mappedA =  map (replicate 3) [3..6]  
+mappedB = map (map (^2)) [[1,2],[3,4,5,6],[7,8]]  
+mappedC = map fst [(1,2),(3,5),(6,3),(2,6),(2,5)]  
+
+-- // very insightful! on similarity between map and comprehension
+-- You've probably noticed that each of these could be achieved with a list comprehension. map (+3) [1,5,3,1,6] is the same as writing [x+3 | x <- [1,5,3,1,6]]. However, using map is much more readable for cases where you only apply some function to the elements of a list, especially once you're dealing with maps of maps and then the whole thing with a lot of brackets can get a bit messy.
