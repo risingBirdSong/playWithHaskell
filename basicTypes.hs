@@ -247,7 +247,17 @@ zipWith'  _ [] _ = []
 zipWith'  _ _ [] = []
 zipWith' f (x:xs) (y:ys) = (f x y) : zipWith' f xs ys 
 
-two things, my crack at it was appending tuples with the func applied to each, here were just appending 
-straight list.
-and silly me, i had the function correct, but was calling it wrong with a bad func call. I was calling it
-with a func AND val like (+3) but no, we want just func, the val argumens come from the two lists
+-- two things, my crack at it was appending tuples with the func applied to each, here were just appending 
+-- straight list.
+-- and silly me, i had the function correct, but was calling it wrong with a bad func call. I was calling it
+-- with a func AND val like (+3) but no, we want just func, the val argumens come from the two lists
+
+veryInterestingRecursiveZip = zipWith' (zipWith' (*)) [[1,2,3],[3,5,6],[2,3,4]] [[3,2,2],[3,4,5],[5,4,3]]  
+
+-- wrong associativity, error
+-- flip' f = g
+--     where f x y = g y x
+
+-- fixed, ensure the right assignment is defined first
+flip' f = g  
+  where g x y = f y x  
