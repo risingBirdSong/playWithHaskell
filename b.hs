@@ -296,3 +296,48 @@ mappedC = map fst [(1,2),(3,5),(6,3),(2,6),(2,5)]
 
 -- // very insightful! on similarity between map and comprehension
 -- You've probably noticed that each of these could be achieved with a list comprehension. map (+3) [1,5,3,1,6] is the same as writing [x+3 | x <- [1,5,3,1,6]]. However, using map is much more readable for cases where you only apply some function to the elements of a list, especially once you're dealing with maps of maps and then the whole thing with a lot of brackets can get a bit messy.
+
+-- filter_ :: (p -> Bool) -> [a] -> [a]
+-- ah, at first I had this type, and it wouldnt compile, i commented it out, it compiled, looked at the inferred type and ahah, its
+-- -- filter_ :: (a -> Bool) -> [a] -> [a]
+-- notice that the parens IS the predicate, and it takes an a
+
+filter_ :: (a -> Bool) -> [a] -> [a]
+filter_ _ [] = []
+filter_ p (x:xs) 
+    | (p x) = x : filter_ p xs
+    | otherwise = filter_ p xs
+
+-- and look how its called!
+
+trues = filter_ ( == True)  [True, False, True, False]
+fives = filter_ (== 5) [3,4,5,6,5,7,5,8] 
+greaterThanTen = filter_ (>10) [3,4,6,12,86,4,67]
+
+evens = filter_ even [1..10]
+
+-- interesting expression with the inline predicate, i like how haskell treats an empty array as null, makes an intuitive sense unlike js.
+notNulls =  let notNull x = not (null x) in filter notNull [[1,2,3],[],[3,4,5],[2,2],[],[],[]] 
+
+lol_a = filter (`elem` ['a'..'z']) "u LaUgH aT mE BeCaUsE I aM diFfeRent"
+lol_b = filter (`elem` ['A'..'Z']) "i lauGh At You BecAuse u r aLL the Same"
+
+
+-- Thanks to Haskell's laziness, even if you map something over a list several times and filter it several times, it will only pass over the list once.
+
+largestDivisible :: (Integral a) => a  
+largestDivisible = head (filter p [100000,99999..])  
+    where p x = x `mod` 3829 == 0  
+
+-- We didn't even need to use a finite list for our starting set. That's laziness in action again. Because we only end up using the head of the filtered list, it doesn't matter if the filtered list is finite or infinite. The evaluation stops when the first adequate solution is found.
+
+chain 1 = [1]
+chain x 
+    | even x = x:chain (x `div` 2)
+    | odd x = x:chain (x*3 + 1)
+
+
+chain_ x 
+    | (x == 1) = [1]
+    | even x = x:chain_ (x `div` 2)
+    | odd x = x:chain_ (x*3 + 1)
