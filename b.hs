@@ -375,10 +375,17 @@ numLongChainsLamba = length (filter (\xs -> length xs > 15) (map chain [1..100])
 
 -- rewrite sum using fold (js reduce)
 
-sum_ :: (a -> [a]) -> a -> [a] -> [b]
+sum_ :: (a -> [a]) -> a -> [a -> [a -> [a] -> [b]]]
 sum' x xs = foldl (\acc x -> acc + x) 0 xs
 
 
 -- first attempt at fold look at this type error
 -- * Couldn't match expected type `a -> [a]'
 --                   with actual type `[a -> [a] -> [b]]'
+
+-- oh interesting look at how the error type has recursed
+-- * Couldn't match expected type `a -> [a]'
+-- with actual type `[a -> [a -> [a] -> [b]]]'
+
+-- going to experiment by putting that recursed type in my signature and expecting the error to recurse yet again
+
