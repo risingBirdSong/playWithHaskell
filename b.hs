@@ -371,3 +371,14 @@ finished = finishMultiply listOfFuns [10,9..1]
 
 numLongChainsLamba = length (filter (\xs -> length xs > 15) (map chain [1..100]))
 
+-- fold
+
+-- rewrite sum using fold (js reduce)
+
+sum_ :: (a -> [a]) -> a -> [a] -> [b]
+sum' x xs = foldl (\acc x -> acc + x) 0 xs
+
+
+-- first attempt at fold look at this type error
+-- * Couldn't match expected type `a -> [a]'
+--                   with actual type `[a -> [a] -> [b]]'
