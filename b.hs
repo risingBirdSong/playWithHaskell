@@ -341,3 +341,14 @@ chain_ x
     | (x == 1) = [1]
     | even x = x:chain_ (x `div` 2)
     | odd x = x:chain_ (x*3 + 1)
+
+    -- visualizing the chain 
+    -- https://jsfiddle.net/naughtnowwhen/rtzvb93q/3/
+
+    -- for all starting numbers between 1 and 100, how many chains have a length greater than 15? 
+
+    -- my attempt
+-- chainsGreater =  filter (length (map chain [1..100]) > 15)
+
+numLongChains = length (filter isLonger (map chain [1..100]))
+    where isLonger x = length x > 15
