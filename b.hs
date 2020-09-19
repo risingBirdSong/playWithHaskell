@@ -362,3 +362,12 @@ listOfFuns = map (*) [1..10]
 finishMultiply [] _ = []
 finishMultiply _ [] = []
 finishMultiply (x:xs) (y:ys) = (x y) : finishMultiply xs ys  
+
+finished = finishMultiply listOfFuns [10,9..1]
+
+-- lambdas
+
+-- ah lambda is the answer to my previous question!
+
+numLongChainsLamba = length (filter (\xs -> length xs > 15) (map chain [1..100]))
+
