@@ -374,8 +374,7 @@ numLongChainsLamba = length (filter (\xs -> length xs > 15) (map chain [1..100])
 -- fold
 
 -- rewrite sum using fold (js reduce)
-
-sum_ :: (a -> [a]) -> a -> [a -> [a -> [a] -> [b]]]
+sum' :: (Foldable t, Num a) => p -> t a -> a
 sum' x xs = foldl (\acc x -> acc + x) 0 xs
 
 
@@ -389,3 +388,10 @@ sum' x xs = foldl (\acc x -> acc + x) 0 xs
 
 -- going to experiment by putting that recursed type in my signature and expecting the error to recurse yet again
 
+-- sure enough the type has recursed
+-- * Couldn't match expected type `a -> [a]'
+-- with actual type `[a -> [a -> [a -> [a] -> [b]]]]'
+
+-- now to remove the type and look at the inferred type
+-- ah yes interesting that recursive typing has been inferred to be a foldable type
+-- sum' :: (Foldable t, Num a) => p -> t a -> a
