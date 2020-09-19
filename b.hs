@@ -352,3 +352,13 @@ chain_ x
 
 numLongChains = length (filter isLonger (map chain [1..100]))
     where isLonger x = length x > 15
+
+    
+listOfFuns = map (*) [1..10]  
+-- so this applies multiple to num so that each is partially applied, but then how to apply another number
+-- to each to finish the multiplication?
+-- finishApplying = listOfFuns map id id
+
+finishMultiply [] _ = []
+finishMultiply _ [] = []
+finishMultiply (x:xs) (y:ys) = (x y) : finishMultiply xs ys  
