@@ -449,3 +449,10 @@ map_f f xs = foldr (\x acc -> f x : acc) [] xs
 
 -- https://wiki.haskell.org/Foldr_Foldl_Foldl%27
 -- many more good insights about the various folds including laziness vs eager evaluation (I think those are correct terms) and the short circuiting ability of right right fold, it can resolve before exhausting the list if a given condition is achieved
+
+-- another benefit of right fold is we prepend our newly processed data to the accum rather than appending, appending to a linked list is much more expensive.
+
+-- wow
+-- One big difference is that right folds work on infinite lists, whereas left ones don't! To put it plainly, if you take an infinite list at some point and you fold it up from the right, you'll eventually reach the beginning of the list. However, if you take an infinite list at a point and you try to fold it up from the left, you'll never reach an end!
+
+-- with The foldl1 and foldr1 we dont need to include a starting accum, the first list item will begin accumulation. however an empty list will result in an error!
