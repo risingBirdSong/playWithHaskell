@@ -435,3 +435,17 @@ elem_ y ys = foldl (\acc x -> if x == y then True else acc) False ys
 -- correct map from foldr
 map_f :: (a->b) -> [a] -> [b]
 map_f f xs = foldr (\x acc -> f x : acc) [] xs
+
+
+-- I wasnt sure why the ordering of the args to foldr ([] xs)
+-- :doc foldr explicitly defines this order
+
+-- note that foldl consumes an accumulator and a list in the same order ... but they differ
+-- in how they consume infinite lists
+
+
+-- important and interesting!
+-- The right fold, foldr works in a similar way to the left fold, only the accumulator eats up the values from the right. Also, the left fold's binary function has the accumulator as the first parameter and the current value as the second one (so \acc x -> ...), the right fold's binary function has the current value as the first parameter and the accumulator as the second one (so \x acc -> ...). It kind of makes sense that the right fold has the accumulator on the right, because it folds from the right side.
+
+-- https://wiki.haskell.org/Foldr_Foldl_Foldl%27
+-- many more good insights about the various folds including laziness vs eager evaluation (I think those are correct terms) and the short circuiting ability of right right fold, it can resolve before exhausting the list if a given condition is achieved
