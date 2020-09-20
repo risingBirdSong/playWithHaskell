@@ -374,11 +374,64 @@ numLongChainsLamba = length (filter (\xs -> length xs > 15) (map chain [1..100])
 -- fold
 
 -- rewrite sum using fold (js reduce)
+sum' :: (Num a) => [a] -> a  
+sum' xs = foldl (\acc x -> acc + x) 0 xs
 
-sum_ :: (a -> [a]) -> a -> [a] -> [b]
-sum' x xs = foldl (\acc x -> acc + x) 0 xs
+-- wrongly included an x in the input of the sum' func
+-- but look at that the sum' func type has no mention of foldable
 
 
--- first attempt at fold look at this type error
--- * Couldn't match expected type `a -> [a]'
---                   with actual type `[a -> [a] -> [b]]'
+-- and an even simpler folder 
+sum__ :: (Num a) => [a] -> a  
+sum__ = foldl (+) 0 
+
+-- Generally, if you have a function like foo a = bar b a,
+
+-- The type definition of these top level funcs using fold are much simpler than I first thought theyd be
+
+-- read more here
+-- https://wiki.haskell.org/Foldable_and_Traversable
+
+product' :: (Num a) => [a] -> a
+product' = foldl (*) 1
+
+-- foldl :: Foldable t => (b -> a -> b) -> b -> t a -> b
+-- in this case         (int->int->int)       is t a list like type of the input data?
+
+
+elem_ :: (Eq a) => a -> [a] -> Bool  
+elem_ y ys = foldl (\acc x -> if x == y then True else acc) False ys 
+
+-- Well, well, well, what do we have here? The starting value and accumulator here is a boolean value. The type of the accumulator value and the end result is always the same when dealing with folds. Remember that if you ever don't know what to use as a starting value, it'll give you some idea. We start off with False. It makes sense to use False as a starting value. We assume it isn't there. Also, if we call a fold on an empty list, the result will just be the starting value. Then we check the current element is the element we're looking for. If it is, we set the accumulator to True. If it's not, we just leave the accumulator unchanged. If it was False before, it stays that way because this current element is not it. If it was True, we leave it at that.
+
+-- ok that all makes sense and ive used that pattern before
+
+-- defintion
+-- In mathematics, a binary function (also called bivariate function, or function of two variables) is a function that takes two inputs.
+
+
+-- oh intersting the positions of acc and current value are flipped for foldr!
+
+-- The right fold, foldr works in a similar way to the left fold, only the accumulator eats up the values from the right. Also, the left fold's binary function has the accumulator as the first parameter and the current value as the second one (so \acc x -> ...), the right fold's binary function has the current value as the first parameter and the accumulator as the second one (so \x acc -> ...). It kind of makes sense that the right fold has the accumulator on the right, because it folds from the right side.
+
+
+-- challenge rewrite map with foldr attempt ->
+-- map_f :: (a->b) -> [a] -> [b]
+-- map_f f ys = (\x acc -> f x : acc) map_f f ys
+
+-- b.hs:420:26: error: parse error on input `='
+--     |
+-- 420 | map_f f (y:ys) = (\x acc = f x : acc) map_f f ys
+--     | 
+
+-- //right, lamba doesnt use = it uses ->
+
+
+--     * Couldn't match expected type `[a] -> [b]' with actual type `[b]'
+
+-- i didnt call fold, i tried to recursively call map_f, but really its like map_f is just a caller and passing of arguments to foldr to do all the work, so no recursive calls, and i was calling it with func f when f is already in score from map_f, and i wasnt calling it with a starting accumulator, other than that... lol
+
+
+-- correct map from foldr
+map_f :: (a->b) -> [a] -> [b]
+map_f f xs = foldr (\x acc -> f x : acc) [] xs
