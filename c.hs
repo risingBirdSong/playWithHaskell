@@ -15,3 +15,6 @@ works = intersperse '.' "hello world"
 -- intersperse :: a -> [a] -> [a]
 
 -- notice intersperse takesa singular value and returns a list of those values only 'a' satisfies that constraint
+
+
+--hurray!
