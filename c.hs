@@ -1,5 +1,7 @@
 -- QQQ question
 import Data.List
+import Data.Char
+import Data.Function
 
 a_ = intersperse 1 [10, 20, 30, 40, 50]
 
@@ -55,3 +57,6 @@ orTest2 = or $ map (>3) [1,2,3] -- false
 
 -- any and all take a predicate and then check if any or all the elements in a list satisfy the predicate, respectively. Usually we use these two functions instead of mapping over a list and then doing and or or.
 
+spacesplit = groupBy ((==) `on` isSpace) "hello i am a test"
+groupOnCase = groupBy ((==) `on` isUpper) "helloUPPERlowerTESTcase"
+isNumberSplit = groupBy ((==) `on` isNumber) "13nd73hfj48j"

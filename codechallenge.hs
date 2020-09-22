@@ -45,3 +45,4 @@ getuniqueNumber = ( head . concat . sortBy (compare `on` length) . groupBy (\ x 
 -- important!! how to use Eval Bot with backticks!
 -- `` :t (==) `on` length @[]``
 
+reviseAgain = (head . concat . sortBy (compare `on` length) . group) [1,1,9,2,2,2,2]
