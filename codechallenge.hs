@@ -19,3 +19,12 @@ getuniqueNumber = ( head . concat . sortBy (compare `on` length) . groupBy (\ x 
 
 -- from IFcoltransG
 -- a is the type of the initial two values, b is the type after you run them through a function, and c is the type after you combine them with the binary function.
+
+-- i was getting error trying in console
+-- :t (==) `on` length @[]
+-- Pattern syntax in expression context: length@[]
+-- Did you mean to enable TypeApplications?
+-- i was trying to fix it in the global yaml file adding
+-- :set -XTypeApplications
+-- not working, but found you just type that in the console, and now working!
+-- https://stackoverflow.com/questions/30326249/what-does-mean-in-haskell/30326349
