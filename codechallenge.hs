@@ -1,5 +1,7 @@
 import Data.List
 import Data.Function
+-- In a classic .hs source file, the relevant pragma must be included:
+{-#  LANGUAGE TypeApplications  #-}
 testa =  ( head . head . sortBy (compare `on` length) . groupBy (\ x y -> (x == y))) [1,2,2,2,2,2,3,3,9]
 
 getuniqueNumber = ( head . concat . sortBy (compare `on` length) . groupBy (\ x y -> (x == y))) [2,2,2,2,2,9]
@@ -39,3 +41,7 @@ getuniqueNumber = ( head . concat . sortBy (compare `on` length) . groupBy (\ x 
 
 -- :t (==) `on` length @[]
 -- (==) `on` length @[] :: [a] -> [a] -> Bool
+
+-- important!! how to use Eval Bot with backticks!
+-- `` :t (==) `on` length @[]``
+
