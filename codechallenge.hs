@@ -28,3 +28,14 @@ getuniqueNumber = ( head . concat . sortBy (compare `on` length) . groupBy (\ x 
 -- :set -XTypeApplications
 -- not working, but found you just type that in the console, and now working!
 -- https://stackoverflow.com/questions/30326249/what-does-mean-in-haskell/30326349
+
+-- and what is @ solving?
+-- :t (==) `on` length []  
+-- error 
+-- Couldn't match expected type `a -> a0' with actual type `Int'
+--     * Possible cause: `length' is applied to too many arguments
+--       In the second argument of `on', namely `length []'
+--       In the expression: (==) `on` length []
+
+-- :t (==) `on` length @[]
+-- (==) `on` length @[] :: [a] -> [a] -> Bool
