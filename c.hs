@@ -121,3 +121,9 @@ typeApplicationFoldr = foldr @[] @(String, Int) @(Maybe Int) :: ((String, Int) -
 -- foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
 
 -- and yes my original thought was correct, but it's certainly useful to prove it and the @ typeApplication is very useful!
+
+
+-- looking more carefully at using :t foldr with type application
+-- foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+-- matches with     t        a             b
+--          foldr @[] @(String, Int) @(Maybe Int)
