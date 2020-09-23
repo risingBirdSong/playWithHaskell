@@ -2,6 +2,8 @@
 import Data.List
 import Data.Char
 import Data.Function
+import qualified Data.Map as Map  
+
 
 a_ = intersperse 1 [10, 20, 30, 40, 50]
 
@@ -127,3 +129,25 @@ typeApplicationFoldr = foldr @[] @(String, Int) @(Maybe Int) :: ((String, Int) -
 -- foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
 -- matches with     t        a             b
 --          foldr @[] @(String, Int) @(Maybe Int)
+mapFromList :: Map.Map [Char] [Char]
+mapFromList = Map.fromList [("betty","555-2938"),("bonnie","452-2928"),("lucille","205-2928")] 
+
+-- If there are duplicate keys in the original association list, the duplicates are just discarded. This is the type signature of fromList
+
+-- signature for Map.fromList
+-- Map.fromList :: (Ord k) => [(k, v)] -> Map.Map k v  
+
+-- You should always use Data.Map for key-value associations unless you have keys that aren't part of the Ord typeclass.
+
+mapA = Map.insert 5 25 Map.empty
+mapB = Map.insert 5 600 (Map.insert 4 200 ( Map.insert 3 100  Map.empty))  
+mapBB = Map.insert 5 600 . Map.insert 4 200 . Map.insert 3 100 $ Map.empty  
+
+fromList' :: (Ord k) => [(k,v)] -> Map.Map k v  
+fromList' = foldr (\(k,v) acc -> Map.insert k v acc) Map.empty  
+-- notice that this will fail without the type
+mapStr = Map.insert "hello" "world" Map.empty
+
+-- lookup works like the Data.List lookup, only it operates on maps. It returns Just something if it finds something for the key and Nothing if it doesn't.
+
+-- stuck on errors while trying to lookup keys from the maps using lookup
