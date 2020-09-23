@@ -60,3 +60,64 @@ orTest2 = or $ map (>3) [1,2,3] -- false
 spacesplit = groupBy ((==) `on` isSpace) "hello i am a test"
 groupOnCase = groupBy ((==) `on` isUpper) "helloUPPERlowerTESTcase"
 isNumberSplit = groupBy ((==) `on` isNumber) "13nd73hfj48j"
+
+splitAndFilterSpaces = (filter (not . any isSpace) . groupBy ((==) `on` isSpace)) "hello i am a test"
+
+findKey :: (Eq k) => k -> [(k,v)] -> Maybe v  
+findKey key [] = Nothing  
+findKey key ((k,v):xs) = if key == k  
+                            then Just v  
+                            else findKey key xs  
+
+phoneBook =   
+  [("betty","555-2938")  
+  ,("bonnie","452-2928")  
+  ,("patsy","493-2928")  
+  ,("lucille","205-2928")  
+  ,("wendy","939-8282")  
+  ,("penny","853-2492")  
+  ] 
+
+bettyNum :: Maybe [Char]
+bettyNum = findKey "betty" phoneBook
+-- -> Just "555-2938"
+
+-- so Im thinking this is a demonstration of the concept ive heard that once inside a functor a value cannot come out.. notice the above type is a Maybe of [Char] even know we know the value exists, the compiler can't assume that and therefore it's a Maybe... lets try one that doesnt exist.
+
+-- I was wondering why the return value is Just rather than the actual value 555-2938 and I think this wouldnt work because we cant get values out, only transform them, and in this case im wondering if the transformation is from functor Maybe to functor Just
+
+doesntExist :: Maybe [Char]
+doesntExist = findKey "not" phoneBook
+-- -> Nothing
+
+
+-- that is interesting that the exact same logic can be interested with fold and the type is the same
+findKey_fold :: (Eq k) => k -> [(k,v)] -> Maybe v  
+findKey_fold key = foldr (\(k,v) acc -> if key == k then Just v else acc) Nothing  
+
+-- ah and Nothing is the accumulator here
+-- reminder about the type of Foldable here 
+-- foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+
+-- fully applying the type
+-- String -> [(String, Int)] -> Maybe Int
+-- ​
+-- ((String, Int) -> Maybe Int -> Maybe Int) -> Maybe Int -> [(String, Int)] -> Maybe Int
+
+-- important!!
+-- https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TypeApplications
+-- visible type application
+
+-- to infer the type with a more specific type, call like this
+-- :t findKey_fold @Char
+
+-- phoneBook :: [([Char], [Char])]
+
+-- in ghci enable TypeApplications with :set -XTypeApplications, then
+  --  :t foldr @[] @(String, Int) @(Maybe Int)
+typeApplicationFoldr = foldr @[] @(String, Int) @(Maybe Int) :: ((String, Int) -> Maybe Int -> Maybe Int) -> Maybe Int -> [(String, Int)] -> Maybe Int
+
+-- which you can see satisfies the original generic type!
+-- foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+
+-- and yes my original thought was correct, but it's certainly useful to prove it and the @ typeApplication is very useful!
