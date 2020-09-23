@@ -151,3 +151,7 @@ mapStr = Map.insert "hello" "world" Map.empty
 -- lookup works like the Data.List lookup, only it operates on maps. It returns Just something if it finds something for the key and Nothing if it doesn't.
 
 -- stuck on errors while trying to lookup keys from the maps using lookup
+-- lookup "hello" mapStr
+-- forgetting that lookup belongs to the Map import
+-- Map.lookup "hello" mapStr
+-- works
