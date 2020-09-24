@@ -155,3 +155,44 @@ mapStr = Map.insert "hello" "world" Map.empty
 -- forgetting that lookup belongs to the Map import
 -- Map.lookup "hello" mapStr
 -- works
+
+-- very nice
+-- fromListWith is a cool little function. It acts like fromList, only it doesn't discard duplicate keys but it uses a function supplied to it to decide what to do with them. Let's say that a girl can have several numbers and we have an association list set up like this.
+
+data Car = Car {company :: String, model :: String, year :: Int} deriving (Show)  
+mycar = Car {company="Ford", model="Mustang", year=1967}  
+-- broke = Car {company="Ford", model="Mustang"} i was wonderin, and it does, throw an exception, all fields are mandatory
+
+Vector :: a -> a -> a -> Vector a
+data Vector a = Vector a a a deriving (Show)  
+
+-- so here the t type parameter represents three numbers as arguments since that's what is required by type Vector?
+vplus :: (Num t) => Vector t -> Vector t -> Vector t  
+(Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n) 
+
+
+-- side quest
+
+
+-- tried to get up and running with exercism and ran into a whole new set problems
+--learned some more about cabal but also found many errors and roadblocks
+-- helpful resources 
+-- https://www.youtube.com/watch?v=a7R-2vtPLDM&ab_channel=HaskellatWork
+
+-- which teaches that to download a package, we add the package to the project.cabal file, like 
+
+-- build-depends:       base >=4.14 && <4.15
+--                      , random
+
+-- The imports come after the module declaration
+
+-- btw, if you have cabal 3+ you don't need to worry about the new- prefix on commands
+
+-- Yep, so you can either import specific functions / types (or all) with import System.Random (uniformR). Or you can import everything but have it namespaced import qualified System.Random
+
+-- For the latter, you would use it as System.Random.uniformR
+
+-- you can further rename the qualified namespace like import qualified System.Random as Rand
+
+-- to get an external package working in ghci this worked ... 
+-- cabal repl from powershell terminal
