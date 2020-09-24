@@ -225,3 +225,14 @@ inPhoneBook name pnumber pbook = (name,pnumber) `elem` pbook
 
 -- an added resource for how to do imports in haskell
 -- https://wiki.haskell.org/Import
+
+import qualified Data.Map as Map  
+  
+data LockerState = Taken | Free deriving (Show, Eq)  
+  
+type Code = String  
+  
+type LockerMap = Map.Map Int (LockerState, Code) 
+
+-- for exercism this bug report suggestion worked for me! Building with cabal instead of stack
+-- https://github.com/haskell/haskell-ide-engine/issues/1779
