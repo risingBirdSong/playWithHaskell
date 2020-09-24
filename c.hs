@@ -117,7 +117,7 @@ findKey_fold key = foldr (\(k,v) acc -> if key == k then Just v else acc) Nothin
 
 -- in ghci enable TypeApplications with :set -XTypeApplications, then
   --  :t foldr @[] @(String, Int) @(Maybe Int)
-typeApplicationFoldr = foldr @[] @(String, Int) @(Maybe Int) :: ((String, Int) -> Maybe Int -> Maybe Int) -> Maybe Int -> [(String, Int)] -> Maybe Int
+-- typeApplicationFoldr = foldr @[] @(String, Int) @(Maybe Int) :: ((String, Int) -> Maybe Int -> Maybe Int) -> Maybe Int -> [(String, Int)] -> Maybe Int
 
 -- which you can see satisfies the original generic type!
 -- foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
@@ -163,13 +163,15 @@ data Car = Car {company :: String, model :: String, year :: Int} deriving (Show)
 mycar = Car {company="Ford", model="Mustang", year=1967}  
 -- broke = Car {company="Ford", model="Mustang"} i was wonderin, and it does, throw an exception, all fields are mandatory
 
-Vector :: a -> a -> a -> Vector a
+-- Vector :: a -> a -> a -> Vector a
 data Vector a = Vector a a a deriving (Show)  
 
 -- so here the t type parameter represents three numbers as arguments since that's what is required by type Vector?
 vplus :: (Num t) => Vector t -> Vector t -> Vector t  
 (Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n) 
 
+vectMult :: (Num t) => Vector t -> t -> Vector t  
+(Vector i j k) `vectMult` m = Vector (i*m) (j*m) (k*m)  
 
 -- side quest
 
@@ -196,3 +198,30 @@ vplus :: (Num t) => Vector t -> Vector t -> Vector t
 
 -- to get an external package working in ghci this worked ... 
 -- cabal repl from powershell terminal
+
+-- back to regular lessons
+
+type String = [Char]  
+
+type PhoneBook = [(String,String)]  
+type PhoneNumber = String  
+type Name = String  
+type PhoneBook = [(Name,PhoneNumber)]  
+
+phoneBook :: PhoneBook
+phoneBook =      
+    [("betty","555-2938")     
+    ,("bonnie","452-2928")     
+    ,("patsy","493-2928")     
+    ,("lucille","205-2928")     
+    ,("wendy","939-8282")     
+    ,("penny","853-2492")     
+    ]  
+
+    -- thats a really nice syntax using these syntaxes
+inPhoneBook :: Name -> PhoneNumber -> PhoneBook -> Bool  
+inPhoneBook name pnumber pbook = (name,pnumber) `elem` pbook  
+
+
+-- an added resource for how to do imports in haskell
+-- https://wiki.haskell.org/Import
