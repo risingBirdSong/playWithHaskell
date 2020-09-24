@@ -247,3 +247,5 @@ addFifteen = (+ 15)
 
 -- multThenAdd :: (Num a) => (a -> b) -> (b -> c) -> (a -> c)
 adding = addTen . addFifteen . addTen . addFifteen
+
+--force chage
