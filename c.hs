@@ -201,16 +201,15 @@ vectMult :: (Num t) => Vector t -> t -> Vector t
 
 -- back to regular lessons
 
-type String = [Char]  
+type MyString = [Char]  
 
-type PhoneBook = [(String,String)]  
+-- type PhoneBook = [(String,String)]  
 type PhoneNumber = String  
-type Name = String  
+type Name = MyString  
 type PhoneBook = [(Name,PhoneNumber)]  
 
 phoneBook :: PhoneBook
-phoneBook =      
-    [("betty","555-2938")     
+mypb = [("betty","555-2938")     
     ,("bonnie","452-2928")     
     ,("patsy","493-2928")     
     ,("lucille","205-2928")     
@@ -226,14 +225,25 @@ inPhoneBook name pnumber pbook = (name,pnumber) `elem` pbook
 -- an added resource for how to do imports in haskell
 -- https://wiki.haskell.org/Import
 
-import qualified Data.Map as Map  
+-- import qualified Data.Map as Map  
   
-data LockerState = Taken | Free deriving (Show, Eq)  
+-- data LockerState = Taken | Free deriving (Show, Eq)  
   
-type Code = String  
+-- type Code = String  
   
-type LockerMap = Map.Map Int (LockerState, Code) 
+-- type LockerMap = Map.Map Int (LockerState, Code) 
 
 -- for exercism this bug report suggestion worked for me! Building with cabal instead of stack
 -- https://github.com/haskell/haskell-ide-engine/issues/1779
 
+addTen :: Num a => a -> a
+addTen = (+ 10)
+-- addFifteen :: Integer -> Integer
+-- why the difference in inferred types between ten and 15?
+addFifteen :: Num a => a -> a
+addFifteen = (+ 15) 
+
+-- and why the differnet signatures between adding and multing?
+
+-- multThenAdd :: (Num a) => (a -> b) -> (b -> c) -> (a -> c)
+adding = addTen . addFifteen . addTen . addFifteen
