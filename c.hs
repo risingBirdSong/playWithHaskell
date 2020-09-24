@@ -236,3 +236,4 @@ type LockerMap = Map.Map Int (LockerState, Code)
 
 -- for exercism this bug report suggestion worked for me! Building with cabal instead of stack
 -- https://github.com/haskell/haskell-ide-engine/issues/1779
+
