@@ -249,3 +249,9 @@ addFifteen = (+ 15)
 adding = addTen . addFifteen . addTen . addFifteen
 
 --force chage
+
+
+-- ok interesting syntax
+desugaredList = 3:4:5:6:[]
+
+data List a = Empty | Cons (List a) deriving (Show, Read, Eq, Ord) 
