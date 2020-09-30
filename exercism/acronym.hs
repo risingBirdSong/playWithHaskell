@@ -24,11 +24,44 @@ testing = split (=='a') "aabbaca"
 message = pack "I am not angry. Not at all."
 tMap = T.map (\c -> if c == '.' then '!' else c) message
 -- mapTest = map head ["apple", "banana", "charlie"] -- "abc" , working test
-abbreviate xs =  Prelude.map T.head . split (==' ') $ xs
+abbreviate' xs =  Prelude.map T.head . split (==' ') $ xs
 
 mapToUpper = Prelude.map  T.toUpper  $  ["apple", "banana", "charlie"] -- "abc" , working test
 mapToHead = Prelude.map  T.head  $  ["apple", "banana", "charlie"] -- "abc" , working test
 mapBoth =  Prelude.map  T.head . Prelude.map T.toUpper  $  ["apple", "banana", "charlie"] -- "abc" , working test
+ 
 
 isUpperSplit xs = split isUpper xs -- results in ["","amel","ase","est"]
 -- which is progress, but how to split while including the split character?, like ["","Camel","Case","Test"]
+
+-- thanks to Riuga for this
+-- inclusiveSplit p t
+--   | T.null t = []
+--   | otherwise = 
+--       let pre  = fst (T.span p t)
+--           post = T.break p (T.drop (T.length pre) t)
+--        in (pre <> fst post) : inclusiveSplit p (snd post)
+
+-- $> inclusiveSplit isUpper $ T.pack "CamelCaseTest"
+-- ["Camel","Case","Test"]
+
+inclusiveSplit p t
+  | T.null t = []
+  | otherwise = 
+      let pre  = fst (T.span p t)
+          post = T.break p (T.drop (T.length pre) t)
+       in (pre <> fst post) : inclusiveSplit p (snd post)
+
+incluseTest = inclusiveSplit isUpper $ T.pack "CamelCaseTest"
+-- ["Camel","Case","Test"]
+
+packed :: String -> Text
+packed x = T.pack x
+spanning :: (Char -> Bool) -> Text -> (Text, Text)
+spanning p t = T.span p t 
+-- O(n) span, applied to a predicate p and text t, returns a pair whose first element is the longest prefix (possibly empty) of t of elements that satisfy p, and whose second is the remainder of the list.
+-- T.span :: (Char -> Bool) -> Text -> (Text, Text)
+-- so spanning isUpper with a packed text will return empty if first char is lower or as many straight uppers is first is upp
+spanningTest str = T.span isUpper . T.pack $ str
+-- spanningTest "aaaBBB" -> ("","aaaBBB")
+-- spanningTest  "AAAbbb" -> ("AAA","bbb")
