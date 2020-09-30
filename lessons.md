@@ -25,11 +25,3 @@ Working with Text type on a Exercism challenge was running into errors.
 
 totbwf from the community helped me out by including overloaded strings ->
 
-  {-# LANGUAGE OverloadedStrings #-}
-import Data.Text   (Text, split) 
-
-testing = split (=='a') "aabbaca"
-
-and pointing out that the docs I was using were old. With the new docs I resolved the error. 
-
-
