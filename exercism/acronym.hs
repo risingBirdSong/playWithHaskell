@@ -2,6 +2,8 @@
 import Data.Text   (split) 
 import Data.Text as T
 
+import Data.Char
+
 
 testing = split (=='a') "aabbaca"
 
@@ -27,3 +29,6 @@ abbreviate xs =  Prelude.map T.head . split (==' ') $ xs
 mapToUpper = Prelude.map  T.toUpper  $  ["apple", "banana", "charlie"] -- "abc" , working test
 mapToHead = Prelude.map  T.head  $  ["apple", "banana", "charlie"] -- "abc" , working test
 mapBoth =  Prelude.map  T.head . Prelude.map T.toUpper  $  ["apple", "banana", "charlie"] -- "abc" , working test
+
+isUpperSplit xs = split isUpper xs -- results in ["","amel","ase","est"]
+-- which is progress, but how to split while including the split character?, like ["","Camel","Case","Test"]
