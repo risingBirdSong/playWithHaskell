@@ -19,3 +19,9 @@ Foldable Pair can be read as "there is an instance of Foldable for Pair"
 - -> \*
 
 You can read \* as "type"
+
+
+Working with Text type on a Exercism challenge was running into errors. 
+
+totbwf from the community helped me out by including overloaded strings ->
+
