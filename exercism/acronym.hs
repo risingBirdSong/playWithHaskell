@@ -65,3 +65,28 @@ spanning p t = T.span p t
 spanningTest str = T.span isUpper . T.pack $ str
 -- spanningTest "aaaBBB" -> ("","aaaBBB")
 -- spanningTest  "AAAbbb" -> ("AAA","bbb")
+-- grab the first of the tuple
+spanFstUpper str = fst . T.span isUpper . T.pack $ str
+-- spanFstUpper "aaa bbb" -> ""
+-- spanFstUpper "AAAbbb" -> ""
+-- spanFstUpper "AAABbbcc" -> "AAAB"
+
+-- similar as span but breaks when the predicate fails
+breakTest str =  T.break isUpper . T.pack $ str 
+-- breakTest "aaa bbb ccc DDD" -> ("aaa bbb ccc ","DDD")
+-- breakTest "aaaBBBcccDDD" -> ("aaa","BBBcccDDD")
+
+-- post = T.break p (T.drop (T.length pre) t)
+postTest lngth str = T.break isUpper (T.drop lngth . T.pack $ str ) 
+
+-- *Main> postTest 3 "aaabbbccc"
+-- ("bbbccc","")
+-- *Main> postTest 1 "aaabbbccc"
+-- ("aabbbccc","")
+-- *Main> postTest 2 "aaabbbccc"
+-- ("abbbccc","")
+-- *Main> postTest 4 "aaabbbccc"
+-- ("bbccc","")
+
+-- Lambda Calculus
+-- https://www.youtube.com/watch?v=3VQ382QG-y4&ab_channel=FullstackAcademy
