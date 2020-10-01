@@ -63,7 +63,7 @@ initial w
 
 
   -- kfish610 brilliant answer
-
+  -- :set  -XViewPatterns    in GHCI to enable this code
 firstAndUpper :: String -> String
 firstAndUpper ((toUpper->x) : xs) =
     if all isUpper xs then [x] else x : filter isUpper xs
