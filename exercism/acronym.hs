@@ -93,8 +93,10 @@ postTest lngth str = T.break isUpper (T.drop lngth . T.pack $ str )
 -- https://stackoverflow.com/questions/38838688/what-is-the-meaning-of-the-haskell-operator
 
 splitOnUpper =  Prelude.map  T.head . Prelude.map T.toUpper . split (isUpper) $ "aaa BBB ccc" -- "abc" , working test
+spaces = inclusiveSplit (==' ') $ T.pack "aaa bbb ccc"
+camel = inclusiveSplit isUpper $ T.pack "HyperText Markup Language"
+punctuation = split (not . isLetter) . T.pack
 
-abbreviate xs =  Prelude.map  T.head . Prelude.map T.toUpper . (split (== ' ')) . T.concat . inclusiveSplit isUpper . T.pack $ "HyperText Markup Language" 
 
 
 -- Lambda Calculus
