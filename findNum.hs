@@ -9,3 +9,6 @@ findNumSorted srch (x:xs)
   | srch == x = Just x
   | x > srch = Nothing
   | otherwise = findNumSorted srch xs
+
+
+data MyTree a = EmptyTree | Node a (MyTree a) (MyTree a) deriving (Show, Read, Eq)  
