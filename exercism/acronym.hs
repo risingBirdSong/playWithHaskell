@@ -102,8 +102,15 @@ punctuation = split (not . isLetter) . T.pack
 whyfailinginotherrepo =  Prelude.map  T.head . Prelude.map T.toUpper  $  ["zapple", "banana", "charlie"] 
 solutionWithMap =  Prelude.map  T.head . Prelude.map T.toUpper  . Prelude.map T.pack $  ["zapple", "banana", "charlie"] 
 
+what :: [[Char]]
+what = ["is","there","such","a","function","?"]
+whata :: [Text]
+whata = Prelude.map T.pack  ["is","there","such","a","function","?"]
+whatb :: [Char]
+whatb = Prelude.concat  ["is","there","such","a","function","?"]
+
 basicTest =  Prelude.map  T.head . Prelude.map T.toUpper  . Prelude.map T.pack $  ["zapple", "banana", "charlie"] 
-abbrvComposed_a xs= Prelude.map T.head . Prelude.map T.toUpper . spaces $ "aaa bbb ccc"
+abbrvComposed_a xs= Prelude.map T.head . Prelude.map T.toUpper  . Prelude.map . spaces $ "aaa bbb ccc"
 
 -- Lambda Calculus
 -- https://www.youtube.com/watch?v=3VQ382QG-y4&ab_channel=FullstackAcademy
