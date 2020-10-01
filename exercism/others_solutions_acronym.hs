@@ -1,5 +1,6 @@
 module Acronym (abbreviate) where
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ViewPatterns #-}
 import Data.Text (Text)
 import qualified Data.Text as T
 import Data.Char
@@ -60,3 +61,13 @@ initial w
   | T.all isUpper w = T.take 1 w
   | otherwise = (T.toUpper $ T.take 1 w)<>(T.filter isUpper $ T.drop 1 w)
 
+
+  -- kfish610 brilliant answer
+
+firstAndUpper :: String -> String
+firstAndUpper ((toUpper->x) : xs) =
+    if all isUpper xs then [x] else x : filter isUpper xs
+firstAndUpper [] = []
+
+abbreviate'' :: String -> String
+abbreviate'' = (>>= firstAndUpper) . words 
