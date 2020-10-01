@@ -36,9 +36,11 @@ step_c ss = concat ss
 wordList :: String -> [String]
 wordList s = concat (map (words . separateUpper) (words (onlyLetters s)))
 
+-- firstEachLetter takes the head of each substring, capitalizes it, prepends and recurses on the tail. note its input is the shape of the output of wordList
 firstEachLetter :: [String] -> String
 firstEachLetter [] = ""
 firstEachLetter (x:xs) = (toUpper (head x)):(firstEachLetter xs)
 
+-- abbreviate is the caller function that pipes wordList xs to firstEachLetter
 abbreviate :: String -> String
 abbreviate xs = firstEachLetter (wordList xs)
