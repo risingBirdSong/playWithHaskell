@@ -28,7 +28,7 @@ abbreviate' xs =  Prelude.map T.head . split (==' ') $ xs
 
 mapToUpper = Prelude.map  T.toUpper  $  ["apple", "banana", "charlie"] -- "abc" , working test
 mapToHead = Prelude.map  T.head  $  ["apple", "banana", "charlie"] -- "abc" , working test
-mapBoth =  Prelude.map  T.head . Prelude.map T.toUpper  $  ["apple", "banana", "charlie"] -- "abc" , working test
+mapBoth =  Prelude.map  T.head . Prelude.map T.toUpper  $  ["zapple", "banana", "charlie"] -- "abc" , working test
  
 
 isUpperSplit xs = split isUpper xs -- results in ["","amel","ase","est"]
@@ -97,6 +97,8 @@ spaces = inclusiveSplit (==' ') $ T.pack "aaa bbb ccc"
 camel = inclusiveSplit isUpper $ T.pack "HyperText Markup Language"
 punctuation = split (not . isLetter) . T.pack
 
+whyfailinginotherrepo =  Prelude.map  T.head . Prelude.map T.toUpper  $  ["zapple", "banana", "charlie"] 
+solutionWithMap =  Prelude.map  T.head . Prelude.map T.toUpper  . Prelude.map T.pack $  ["zapple", "banana", "charlie"] 
 
 
 -- Lambda Calculus
