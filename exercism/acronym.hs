@@ -53,6 +53,7 @@ inclusiveSplit p t
        in (pre <> fst post) : inclusiveSplit p (snd post)
 
 incluseTest = inclusiveSplit isUpper $ T.pack "CamelCaseTest"
+incluseTestA = inclusiveSplit isLower $ T.pack "CAMELcASEtEST"
 -- ["Camel","Case","Test"]
 
 packed :: String -> Text
@@ -87,6 +88,14 @@ postTest lngth str = T.break isUpper (T.drop lngth . T.pack $ str )
 -- ("abbbccc","")
 -- *Main> postTest 4 "aaabbbccc"
 -- ("bbccc","")
+
+-- what is <> ? shorthand for Monoid's mappend?
+-- https://stackoverflow.com/questions/38838688/what-is-the-meaning-of-the-haskell-operator
+
+splitOnUpper =  Prelude.map  T.head . Prelude.map T.toUpper . split (isUpper) $ "aaa BBB ccc" -- "abc" , working test
+
+abbreviate xs =  Prelude.map  T.head . Prelude.map T.toUpper . (split (== ' ')) . T.concat . inclusiveSplit isUpper . T.pack $ "HyperText Markup Language" 
+
 
 -- Lambda Calculus
 -- https://www.youtube.com/watch?v=3VQ382QG-y4&ab_channel=FullstackAcademy
