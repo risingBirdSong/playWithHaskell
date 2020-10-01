@@ -4,4 +4,8 @@ findNum _ [] = Nothing
 findNum srch (x:xs) 
   | srch == x =  Just srch
   | otherwise = findNum srch xs
-
+-- 
+findNumSorted srch (x:xs) 
+  | srch == x = Just x
+  | x > srch = Nothing
+  | otherwise = findNumSorted srch xs
