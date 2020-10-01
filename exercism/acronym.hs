@@ -112,5 +112,8 @@ whatb = Prelude.concat  ["is","there","such","a","function","?"]
 basicTest =  Prelude.map  T.head . Prelude.map T.toUpper  . Prelude.map T.pack $  ["zapple", "banana", "charlie"] 
 abbrvComposed_a xs= Prelude.map T.head . Prelude.map T.toUpper  . Prelude.map . spaces $ "aaa bbb ccc"
 
+
+abbreviate xs = Prelude.map T.head . Prelude.map T.toUpper . inclusiveSplit isUpper . T.concat . punctuation $ xs
+
 -- Lambda Calculus
 -- https://www.youtube.com/watch?v=3VQ382QG-y4&ab_channel=FullstackAcademy
