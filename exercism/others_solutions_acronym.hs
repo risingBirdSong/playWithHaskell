@@ -1,5 +1,7 @@
 module Acronym (abbreviate) where
-
+{-# LANGUAGE OverloadedStrings #-}
+import Data.Text (Text)
+import qualified Data.Text as T
 import Data.Char
 
 
@@ -44,3 +46,17 @@ firstEachLetter (x:xs) = (toUpper (head x)):(firstEachLetter xs)
 -- abbreviate is the caller function that pipes wordList xs to firstEachLetter
 abbreviate :: String -> String
 abbreviate xs = firstEachLetter (wordList xs)
+
+
+-- davidjoeressen's solution
+
+abbreviate' :: Text -> Text
+abbreviate' = T.concat . map (initial . T.filter isLetter) . T.words . T.replace "-" " "
+-- brilliant little helper function ... if the whole substring is uppercase, then just take the first letter
+-- otherwise take the first letter, capitalize it, and mappend it to every next uppercase letter if encounters
+initial :: Text -> Text
+initial "" = ""
+initial w
+  | T.all isUpper w = T.take 1 w
+  | otherwise = (T.toUpper $ T.take 1 w)<>(T.filter isUpper $ T.drop 1 w)
+
