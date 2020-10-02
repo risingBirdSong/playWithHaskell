@@ -68,6 +68,10 @@ single v = Nodey v Voidy Voidy
 
 insertingToTree v Voidy = single v
 insertingToTree v (Nodey x (leftB) (rightB)) 
-  | v == x = Nodey x
+  | v == x = Nodey x leftB rightB
   | v < x = Nodey x (insertingToTree v leftB) rightB
   | v > x = Nodey x leftB (insertingToTree v rightB)
+
+--   *Main> insertingToTree 4 Voidy
+-- Nodey 4 Voidy Voidy
+
