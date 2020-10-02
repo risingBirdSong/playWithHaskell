@@ -44,11 +44,11 @@ keepApplyingButDontCrash = take 10 keepApplying
 -- remake Tree from scratch for practice... I see why i used x and a here... but its not right, remember this is a
 -- typeclass, so x is a type parameter, so we can use x throughout, its not saying its the same value, its saying its the same type.
 
-Voidy :: Tree' x
-Nodey :: x -> Tree' x -> Tree' x -> Tree' x
+-- Voidy :: Tree' x
+-- Nodey :: x -> Tree' x -> Tree' x -> Tree' x
 data Tree' x = Voidy | Nodey x (Tree' x) (Tree' x) deriving (Show, Read, Eq)  
 
--- did it like this at first using Tree' but notive that Tree' is a typeclass, and for an instantiation, we want to use a value, therefore we use the name of the type designated in Tree' that conforms to the contract, in this case Nodey ...
+-- did it like this at first using Tree' but notive that Tree' is a typeclass, and for an instantiation, we want to use a value, therefore we use the name of the value-level constructor (discussed in more detail below from help of Digi) designated in Tree' that conforms to the contract, in this case Nodey ...
 -- single v = Tree' v Voidy Voidy
 single v = Nodey v Voidy Voidy
 
@@ -65,3 +65,9 @@ single v = Nodey v Voidy Voidy
 -- type-level constructors construct types
 -- so like, Tree' is a type constructor
 -- it takes in a type and 'holds onto it' in the same way a value-level constructor does with values
+
+insertingToTree _ Voidy = single v
+insertingToTree v (Nodey x (Tree' leftB) (Tree' rightB)) 
+  | v == x = Nodey x
+  | v < x = Nodey x (insertingToTree v leftB) rightB
+  | v > x = Nodey x leftB (insertingToTree v rightB)
