@@ -34,8 +34,12 @@ findValue srch (Node x left_b right_b)
 -- findValue 9 testTree Just 9 
 -- findValue (-100) testTree Nothing 
 
+-- cheeky remake of linkedin javascript function about persistently appyling for jobs I saw that would crash
+-- while (true) {keepApplying ++}
+
 keepApplying = replicate 1000000000000 "keep applying"
 keepApplyingButDontCrash = take 10 keepApplying  
 -- ["keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying"]
 
 
+data Tree' x = Voidy | Nodey x (Tree' a) (Tree' a)
