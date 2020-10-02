@@ -12,3 +12,24 @@ findNumSorted srch (x:xs)
 
 
 data MyTree a = EmptyTree | Node a (MyTree a) (MyTree a) deriving (Show, Read, Eq)  
+
+singleton x = Node x EmptyTree EmptyTree
+
+insertVal v EmptyTree = singleton v
+insertVal v (Node x lefty righty)
+  | v == x = Node x lefty righty
+  | v < x = Node x (insertVal v lefty) righty
+  | v > x = Node x lefty (insertVal v righty)
+  
+testTree = foldr insertVal EmptyTree [9,1,8,2,7,3,6,4,5]
+-- Node 5 (Node 4 (Node 3 (Node 2 (Node 1 EmptyTree EmptyTree) EmptyTree) EmptyTree) EmptyTree) (Node 6 EmptyTree (Node 7 EmptyTree (Node 8 EmptyTree (Node 9 EmptyTree EmptyTree))))
+
+findValue _ EmptyTree = Nothing
+findValue srch (Node x left_b right_b) 
+  | srch == x = Just x
+  | srch < x = findValue srch left_b
+  | srch > x = findValue srch right_b
+
+-- findValue 3 testTree Just 3 
+-- findValue 9 testTree Just 9 
+-- findValue (-100) testTree Nothing 
