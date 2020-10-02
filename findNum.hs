@@ -41,5 +41,27 @@ keepApplying = replicate 1000000000000 "keep applying"
 keepApplyingButDontCrash = take 10 keepApplying  
 -- ["keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying"]
 
+-- remake Tree from scratch for practice... I see why i used x and a here... but its not right, remember this is a
+-- typeclass, so x is a type parameter, so we can use x throughout, its not saying its the same value, its saying its the same type.
 
-data Tree' x = Voidy | Nodey x (Tree' a) (Tree' a)
+Voidy :: Tree' x
+Nodey :: x -> Tree' x -> Tree' x -> Tree' x
+data Tree' x = Voidy | Nodey x (Tree' x) (Tree' x) deriving (Show, Read, Eq)  
+
+-- did it like this at first using Tree' but notive that Tree' is a typeclass, and for an instantiation, we want to use a value, therefore we use the name of the type designated in Tree' that conforms to the contract, in this case Nodey ...
+-- single v = Tree' v Voidy Voidy
+single v = Nodey v Voidy Voidy
+
+-- all this helpful info from Digi (Discord)
+
+-- "constructor"
+-- is what they're called
+-- Tree' is not a typeclass, it is a type-level constructor
+
+-- typeclasses are used to constrain polymorphic types, type-level constructors are what they sound like
+
+-- so Tree' defines a type-level constructor and two value-level constructors
+
+-- type-level constructors construct types
+-- so like, Tree' is a type constructor
+-- it takes in a type and 'holds onto it' in the same way a value-level constructor does with values
