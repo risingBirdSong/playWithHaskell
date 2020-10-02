@@ -33,3 +33,9 @@ findValue srch (Node x left_b right_b)
 -- findValue 3 testTree Just 3 
 -- findValue 9 testTree Just 9 
 -- findValue (-100) testTree Nothing 
+
+keepApplying = replicate 1000000000000 "keep applying"
+keepApplyingButDontCrash = take 10 keepApplying  
+-- ["keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying","keep applying"]
+
+
