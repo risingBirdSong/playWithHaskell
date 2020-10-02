@@ -80,3 +80,15 @@ addToTree v (Nodey x left right)
   | v == x = Nodey x left right
   | v < x = Nodey x (addToTree v left) right
   | v > x = Nodey x left (addToTree v right)
+
+niceTree = foldr addToTree Voidy [90,10,75,25,60,40,50]
+-- Nodey 50 (Nodey 40 (Nodey 25 (Nodey 10 Voidy Voidy) Voidy) Voidy) (Nodey 60 Voidy (Nodey 75 Voidy (Nodey 90 Voidy Voidy)))
+
+searchTree _ Voidy = Nothing
+searchTree v (Nodey x left right)
+  | v == x = Just x
+  | v < x = searchTree v left
+  | v > x = searchTree v right
+
+  -- *Main> searchTree 50 niceTree 
+  -- Just 50
