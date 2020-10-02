@@ -75,3 +75,8 @@ insertingToTree v (Nodey x (leftB) (rightB))
 --   *Main> insertingToTree 4 Voidy
 -- Nodey 4 Voidy Voidy
 
+addToTree v Voidy = single v
+addToTree v (Nodey x left right)
+  | v == x = Nodey x left right
+  | v < x = Nodey x (addToTree v left) right
+  | v > x = Nodey x left (addToTree v right)
