@@ -66,8 +66,8 @@ single v = Nodey v Voidy Voidy
 -- so like, Tree' is a type constructor
 -- it takes in a type and 'holds onto it' in the same way a value-level constructor does with values
 
-insertingToTree _ Voidy = single v
-insertingToTree v (Nodey x (Tree' leftB) (Tree' rightB)) 
+insertingToTree v Voidy = single v
+insertingToTree v (Nodey x (leftB) (rightB)) 
   | v == x = Nodey x
   | v < x = Nodey x (insertingToTree v leftB) rightB
   | v > x = Nodey x leftB (insertingToTree v rightB)
