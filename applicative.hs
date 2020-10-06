@@ -1,5 +1,7 @@
 import Control.Applicative
 import Control.Monad
+import Data.Semigroup
+{-# LANGUAGE TypeFamilies #-}
 
     -- because 4 are not conained, not in functors
 -- doesntWork = (+) <$> 4 <*> 4
@@ -96,3 +98,15 @@ lazinessInAction_error = head [undefined,4,5,undefined,2,undefined]
 
 -- cool i've used mconcat before but didnt know the m stood for monoid, it makes sense now
 monoidConcat = mconcat [[1,2],[3,6],[9]] -- [1,2,3,6,9]
+
+instance Semigroup Any' where
+    (<>) = mappend
+
+newtype Any' = Any' { getAny' :: Bool }  
+    deriving (Eq, Ord, Read, Show, Bounded) 
+
+instance Monoid Any' where  
+    mempty = Any' False  
+    Any' x `mappend` Any' y = Any' (x || y) 
+
+testCustomAny = getAny' $ Any' True `mappend` Any' False -- True
