@@ -1,4 +1,5 @@
 import Control.Applicative
+import Control.Monad
 
     -- because 4 are not conained, not in functors
 -- doesntWork = (+) <$> 4 <*> 4
@@ -27,3 +28,24 @@ sequenceA' (x:xs) = (:) <$> x <*> sequenceA xs
 -- Just [4,5]
 
 --I think the most common way to think about it is combining the inner effects into a single outer effect." -Arc
+
+sequenceA_ :: (Applicative f) => [f a] -> f [a]  
+sequenceA_ = foldr (liftA2 (:)) (pure [])  
+
+-- and what are use cases of this sort of behavior?
+-- ghci> sequenceA [[1,2,3],[4,5,6]]  
+-- [[1,4],[1,5],[1,6],[2,4],[2,5],[2,6],[3,4],[3,5],[3,6]]
+
+-- allcombos = sequence (replicate 4 ['a'..'z'])
+takeOnlySome = take 52 $ sequence (replicate 4 ['a'..'z'])
+--monadic
+cleaner = take 20 $ replicateM 4 ['a'..'z']
+-- ["aaaa","aaab","aaac","aaad","aaae","aaaf","aaag","aaah","aaai","aaaj","aaak","aaal","aaam","aaan","aaao","aaap","aaaq","aaar","aaas","aaat","aaau","aaav","aaaw","aaax","aaay","aaaz","aaba","aabb","aabc","aabd","aabe","aabf","aabg","aabh","aabi","aabj","aabk","aabl","aabm","aabn","aabo","aabp","aabq","aabr","aabs","aabt","aabu","aabv","aabw","aabx","aaby","aabz"]
+
+-- sequenceA_ [(+3), (+10), (+20)] 5
+-- [8,15,25]
+
+-- sequenceA [(>4),(<10),odd] 7  
+-- [True,True,True]  
+
+gottenList = getZipList $ ZipList [1,2,3] -- [1,2,3]
