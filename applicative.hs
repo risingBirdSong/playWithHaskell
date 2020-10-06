@@ -48,4 +48,34 @@ cleaner = take 20 $ replicateM 4 ['a'..'z']
 -- sequenceA [(>4),(<10),odd] 7  
 -- [True,True,True]  
 
+subsequences xs = filterM (const [True,False]) xs
+filterAllCombos = filterM (const [True,False]) [1..4]
+-- [[1,2,3,4],[1,2,3],[1,2,4],[1,2],[1,3,4],[1,3],[1,4],[1],[2,3,4],[2,3],[2,4],[2],[3,4],[3],[4],[]]
+
+-- you can think of a List as a nondeterministic choice of one of the elements
+-- and the list monad models this
+-- when you do do x <- [1,2,3]; y <- [1,2,3]; pure (x,y) you can read this as "nondeterministically choose an element from the first list and an element from the second list and return a pair of the elements chosen
+-- and you get back a "nondeterministic" results, i.e. a list of all possible pairs
+-- filterM lets you filter a list in a monadic context
+-- for example you can ask the user whether to keep each element in the list or not
+-- filterM (\x -> print x >> readLn) [1,2,3]
+-- this is in the IO monad
+-- the user can type True or False to decide whether the element should be kept in the result
+-- so in the List monad we can just ignore the element and return [True,False], i.e. a nondeterministic choice between keeping it in the result or not
+-- and we get a "nondeterministic" result, that is a list of all such possible filtered lists
+
+
 gottenList = getZipList $ ZipList [1,2,3] -- [1,2,3]
+zipFuncsWithVals = getZipList $ ZipList [(+1),(*100),(*5)] <*> ZipList [1,2,3] -- [2,200,15]
+
+-- and remember the simple way to batch lists ->
+simpleBatch = [1,2,3] ++ [4,5,6] -- [1,2,3,4,5,6]
+
+
+data Profession = Fighter | Archer | Accountant  
+  
+data Race = Human | Elf | Orc | Goblin  
+  
+data PlayerCharacter = PlayerCharacter Race Profession 
+
+ 
