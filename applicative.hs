@@ -84,3 +84,15 @@ myFighter = Fighter
 myHumanFighter = PlayerCharacter Human Fighter
 myElfArcher = PlayerCharacter Elf Archer
 myGoblinAccountant = PlayerCharacter Goblin Accountant
+
+threeTupleLengthTest = (1,2,3)
+fourTupleLengthTest = (1,2,3,4)
+
+lazinessInAction = head [3,4,5,undefined,2,undefined] 
+-- notice it compiles but will be an error if run 
+lazinessInAction_error = head [undefined,4,5,undefined,2,undefined]  
+
+-- A monoid is when you have an associative binary function and a value which acts as an identity with respect to that function. When something acts as an identity with respect to a function, it means that when called with that function and some other value, the result is always equal to that other value
+
+-- cool i've used mconcat before but didnt know the m stood for monoid, it makes sense now
+monoidConcat = mconcat [[1,2],[3,6],[9]] -- [1,2,3,6,9]
