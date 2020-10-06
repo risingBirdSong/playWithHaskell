@@ -16,3 +16,14 @@ applicativeStyle = (:) <$> Just 3 <*> Just [4]
 lifted = liftA2 (:) (Just 3)(Just [4])
 
 -- so it looks like lift is a syntactic sugar for the applicative style
+
+sequenceA' :: (Applicative f) => [f a] -> f [a]  
+sequenceA' [] = pure []  
+sequenceA' (x:xs) = (:) <$> x <*> sequenceA xs 
+
+-- ah and I thought i was overly hung up on sequenceA' but really its just doing a familiar pattern like in applicativeStyle = (:) <$> Just 3 <*> Just [4] but just abstracting it into recursive pattern.
+
+-- sequenceA [Just 4, Just 5]
+-- Just [4,5]
+
+--I think the most common way to think about it is combining the inner effects into a single outer effect." -Arc
