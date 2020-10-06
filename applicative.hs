@@ -72,10 +72,15 @@ zipFuncsWithVals = getZipList $ ZipList [(+1),(*100),(*5)] <*> ZipList [1,2,3] -
 simpleBatch = [1,2,3] ++ [4,5,6] -- [1,2,3,4,5,6]
 
 
-data Profession = Fighter | Archer | Accountant  
+data Profession = Fighter | Archer | Accountant  deriving (Show, Eq, Read)
   
-data Race = Human | Elf | Orc | Goblin  
+data Race = Human | Elf | Orc | Goblin  deriving (Show, Eq, Read)
   
-data PlayerCharacter = PlayerCharacter Race Profession 
+data PlayerCharacter = PlayerCharacter Race Profession  deriving (Show, Eq, Read)
 
- 
+-- PlayerCharacter :: Race -> Profession -> PlayerCharacter
+myHuman = Human 
+myFighter = Fighter
+myHumanFighter = PlayerCharacter Human Fighter
+myElfArcher = PlayerCharacter Elf Archer
+myGoblinAccountant = PlayerCharacter Goblin Accountant
