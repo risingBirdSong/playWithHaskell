@@ -110,3 +110,5 @@ instance Monoid Any' where
     Any' x `mappend` Any' y = Any' (x || y) 
 
 testCustomAny = getAny' $ Any' True `mappend` Any' False -- True
+
+-- For all intents are purposes there is only one operation in Haskell: applying a pure function to another value. -Arc
