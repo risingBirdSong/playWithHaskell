@@ -160,3 +160,9 @@ applyMaybe (Just x) f = f x
 -- it works like ->
 --   pure 5 :: Maybe Int
 -- Just 5
+
+returned = return "WHAT" :: Maybe String -- Just "WHAT"
+bound y = y >>= (\x -> Just (x * 10)) -- Just 90 
+bounda y = y >>= (\x -> return (x * 10))
+-- bounda (Just 7)
+-- Just 70
