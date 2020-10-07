@@ -166,3 +166,16 @@ bound y = y >>= (\x -> Just (x * 10)) -- Just 90
 bounda y = y >>= (\x -> return (x * 10))
 -- bounda (Just 7)
 -- Just 70
+
+
+
+myMap _ [] = []
+myMap f (x:xs) = f x : myMap f xs 
+
+-- had a question about immutability and ednob gave a good example of immutability in action using simple map
+-- myMap (\x -> x+1) [1,2,3]
+-- myMap (\x -> x+1) (1:2:3:[])
+-- (1 + 1) : myMap (\x -> x + 1) (2:3:[])
+-- (1 + 1) : (2 + 1) : myMap (\x -> x + 1) (3:[])
+-- (1 + 1) : (2 + 1) : (3 + 1) : myMap (\x -> x + 1) []
+-- (1 + 1) : (2 + 1) : (3 + 1) : []
