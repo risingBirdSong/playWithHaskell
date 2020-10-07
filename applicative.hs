@@ -179,3 +179,23 @@ myMap f (x:xs) = f x : myMap f xs
 -- (1 + 1) : (2 + 1) : myMap (\x -> x + 1) (3:[])
 -- (1 + 1) : (2 + 1) : (3 + 1) : myMap (\x -> x + 1) []
 -- (1 + 1) : (2 + 1) : (3 + 1) : []
+type Birds = Int  
+type Pole = (Birds,Birds)  
+
+landLeft :: Birds -> Pole -> Maybe Pole  
+landLeft n (left,right)  
+    | abs ((left + n) - right) < 4 = Just (left + n, right)  
+    | otherwise                    = Nothing  
+  
+landRight :: Birds -> Pole -> Maybe Pole  
+landRight n (left,right)  
+    | abs (left - (right + n)) < 4 = Just (left, right + n)  
+    | otherwise                    = Nothing 
+
+
+    -- landLeft 2 (0,0)   Just (2,0)
+    -- this is the problem, because the function takes a Pole  returns a maybe Pole, we can't chain like this ->
+-- landLeft 1 (landRight 1 (0,0))    
+  -- * Couldn't match type `Maybe Pole' with `(Birds, Birds)'
+  -- Expected type: Pole
+  --   Actual type: Maybe Pole
