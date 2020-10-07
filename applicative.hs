@@ -1,6 +1,7 @@
 import Control.Applicative
 import Control.Monad
 import Data.Semigroup
+import qualified Data.Foldable as F  
 {-# LANGUAGE TypeFamilies #-}
 
     -- because 4 are not conained, not in functors
@@ -112,3 +113,50 @@ instance Monoid Any' where
 testCustomAny = getAny' $ Any' True `mappend` Any' False -- True
 
 -- For all intents are purposes there is only one operation in Haskell: applying a pure function to another value. -Arc
+data Tree a = Empty | Node a (Tree a) (Tree a) deriving (Show, Read, Eq)  
+
+instance F.Foldable Tree where  
+    foldMap f Empty = mempty  
+    foldMap f (Node x l r) = F.foldMap f l `mappend`  
+                             f x           `mappend`  
+                             F.foldMap f r  
+
+testTree = Node 5  
+            (Node 3  
+                (Node 1 Empty Empty)  
+                (Node 6 Empty Empty)  
+            )  
+            (Node 9  
+                (Node 8 Empty Empty)  
+                (Node 10 Empty Empty)  
+            )
+testingTree_add = F.foldl (+) 0 testTree  -- 42
+testingTree_mult = F.foldl (*) 1 testTree -- 64800
+
+applicativeMax = max <$> Just 3 <*> Just 6  
+applicativeMaxMany = fmap max [Just 4, Just 12, Just 5]
+
+applyMaybe :: Maybe a -> (a -> Maybe b) -> Maybe b  
+applyMaybe Nothing f  = Nothing  
+applyMaybe (Just x) f = f x  
+
+--Just 10 `applyMaybe` (\x -> Just (x + 5)) -- Just 15
+-- Nothing `applyMaybe` (\x -> Just (x + 5))  Nothing
+
+-- Just "smile" `applyMaybe` \x -> Just (x ++ " :)")  Just "smile :)"  
+
+-- Ah cool, I just out of the blue thought to put the type here and it works! Previously for example, I ran pure 5 and just got back 5, no structure, putting the type gives it the structure!
+-- pure 4 :: [Int]
+-- [4]
+-- same with Monad version with return 
+-- return 5 :: [Int]
+-- [5]
+-- but why not with Maybe?
+-- pure 5 :: Maybe 
+-- * Expecting one more argument to `Maybe'
+--       Expected a type, but `Maybe' has kind `* -> *'
+
+-- PrettyPrincessKitty FS thanks
+-- it works like ->
+--   pure 5 :: Maybe Int
+-- Just 5
