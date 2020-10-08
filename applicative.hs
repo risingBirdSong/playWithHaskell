@@ -298,7 +298,7 @@ mysimplestate = runState (simplestate [1,2,3])
 -- default = State $ \xs -> ((),xs)  
 
 -- myput = put [1,2,3]
-
+-- https://wiki.haskell.org/State_Monad great examples
 -- return set the result value but leave the state unchanged.
 prim_a = runState (return 'X') 1 -- ('x', 1)
 -- get set the result value to the state and leave the state unchanged. Comments:
@@ -307,3 +307,13 @@ prim_b = runState get 1 -- (1,1)
 prim_c = runState (put 5) 1 -- ((),5)
 starting = 1
 secondy = runState (put 5) starting
+
+
+-- Because (State s) forms a monad, values can be combined with (>>=) or do{}.
+prim_d =  runState (do { put 5; return 'X' }) 1
+
+postincrement = do { x <- get; put (x+1); return x }
+prim_e = runState postincrement 1 -- (1,2)
+
+modified = runState (modify (+1)) 1
+
