@@ -1,7 +1,11 @@
 import Control.Applicative
 import Control.Monad
 import Data.Semigroup
-import qualified Data.Foldable as F  
+import qualified Data.Foldable as F
+import Control.Monad.Writer  
+import Control.Monad.State  
+
+
 {-# LANGUAGE TypeFamilies #-}
 
     -- because 4 are not conained, not in functors
@@ -238,3 +242,42 @@ initCFG' = Configuration
     , homeDir       = "/"
     , timeConnected = 0
     }
+
+
+type Stack = [Int]  
+
+-- pop :: Stack -> (Int,Stack)  
+-- pop (x:xs) = (x,xs)  
+  
+-- push :: Int -> Stack -> ((),Stack)  
+-- push a xs = ((),a:xs)  
+
+-- stackManip :: Stack -> (Int, Stack)  
+-- stackManip stack = let  
+--     ((),newStack1) = push 3 stack  
+--     -- (a ,newStack2) = pop newStack1  
+--     in pop newStack1  
+
+
+  
+pop :: State Stack Int  
+pop = state $ \(x:xs) -> (x,xs)  
+  
+push :: Int -> State Stack ()  
+push a = state $ \xs -> ((),a:xs) 
+
+mystacka = do  
+    push 2  
+    pop 
+
+push1 = runState mystacka [1,2,3]  -- (2,[1,2,3])
+firsty = fst push1 -- 2
+second = snd push1
+
+mystackb x = do
+  push x
+
+  -- first attempt 
+-- aaa = runState mystackb 9 $ [1,2,3]
+-- proper call thanks to Digi :)
+aaa = runState (mystackb 9) [1,2,3] -- ((),[9,1,2,3])
