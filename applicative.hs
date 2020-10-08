@@ -199,3 +199,20 @@ landRight n (left,right)
   -- * Couldn't match type `Maybe Pole' with `(Birds, Birds)'
   -- Expected type: Pole
   --   Actual type: Maybe Pole
+
+  -- We need a way of taking a Maybe Pole and feeding it to a function that takes a Pole and returns a Maybe Pole. Luckily, we have >>=, which does just that for Maybe. Let's give it a go:
+
+aTestMonad = landRight 1 (0,0) >>= landLeft 2  --Just (2,1) 
+
+bTestMonad = return (0,0) >>= landLeft 1 >>= landRight 3 >>= landLeft (-1) >>= landRight (-2) 
+-- the following is a fix because as soon as the balance is lost, a Nothing is returned and that Nothing propagates. Previously a failure was ignored.  
+aFixToTheProblem = return (0,0) >>= landLeft 1 >>= landRight 4 >>= landLeft (-1) >>= landRight (-2)  
+
+-- will want more examples / learning about <=<
+f x = [x,-x]  
+g x = [x*3,x*2]
+h = f <=< g
+
+-- remember this alternative to ++
+appended = [1,2,3] `mappend` [4,5,6] -- [1,2,3,4,5,6]
+
