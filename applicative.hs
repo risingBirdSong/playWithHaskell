@@ -215,4 +215,26 @@ h = f <=< g
 
 -- remember this alternative to ++
 appended = [1,2,3] `mappend` [4,5,6] -- [1,2,3,4,5,6]
+summed = Sum 3 `mappend` Sum 9 
 
+
+data Configuration = Configuration
+    { username      :: String
+    , localHost     :: String
+    , remoteHost    :: String
+    , isGuest       :: Bool
+    , isSuperuser   :: Bool
+    , currentDir    :: String
+    , homeDir       :: String
+    , timeConnected :: Integer
+    } deriving (Show)
+initCFG' = Configuration
+    { username      = "nobody"
+    , localHost     = "nowhere"
+    , remoteHost    = "nowhere"
+    , isGuest       = False
+    , isSuperuser   = False
+    , currentDir    = "/"
+    , homeDir       = "/"
+    , timeConnected = 0
+    }
