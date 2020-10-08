@@ -282,3 +282,28 @@ mystackb x = do
 -- proper call thanks to Digi :)
 aaa = runState (mystackb 9) [1,2,3] -- ((),[9,1,2,3])
 bbb = runState (mystackb 11) (snd aaa) -- ((),[11,9,1,2,3])
+
+stackyStack :: State Stack ()  
+stackyStack = do  
+    stackNow <- get  
+    if stackNow == [1,2,3]  
+        then put [8,3,1]  
+        else put [9,2,1]  
+
+simplestate :: [Int] -> State [Int] ()  
+simplestate xs = state $ \_ -> ((), xs)
+mysimplestate = runState (simplestate [1,2,3])
+
+-- default :: State [Int] ()  
+-- default = State $ \xs -> ((),xs)  
+
+-- myput = put [1,2,3]
+
+-- return set the result value but leave the state unchanged.
+prim_a = runState (return 'X') 1 -- ('x', 1)
+-- get set the result value to the state and leave the state unchanged. Comments:
+prim_b = runState get 1 -- (1,1)
+-- set the result value to () and set the state value. 
+prim_c = runState (put 5) 1 -- ((),5)
+starting = 1
+secondy = runState (put 5) starting
