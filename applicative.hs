@@ -281,3 +281,4 @@ mystackb x = do
 -- aaa = runState mystackb 9 $ [1,2,3]
 -- proper call thanks to Digi :)
 aaa = runState (mystackb 9) [1,2,3] -- ((),[9,1,2,3])
+bbb = runState (mystackb 11) (snd aaa) -- ((),[11,9,1,2,3])
