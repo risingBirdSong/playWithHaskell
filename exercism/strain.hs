@@ -17,12 +17,21 @@
 
 -- The functions may be called keep and discard, or they may need different names in order to not clash with existing functions or concepts in your language.
 
-strain fn [] = []
-strain fn (x:xs) 
-  | fn x == True = x : strain fn xs
-  | otherwise = strain fn xs
+-- my working solution
+discard :: (a -> Bool) -> [a] -> [a]
+discard _ [] = [] 
+discard p (x:xs) 
+  | p x == False = x : discard p xs
+  | otherwise = discard p xs
 
--- twoOrFour = strain (==2 || ==4)
+keep :: (a -> Bool) -> [a] -> [a]
+keep _ [] = []
+keep p (x:xs) 
+  | p x == True = x : keep p xs
+  | otherwise = keep p xs
+
+
+-- twoOrFour = keep (==2 || ==4)
 
 -- foldr (.) id 
 
@@ -37,4 +46,11 @@ orEquals x
   | x == 4 = True
   | otherwise = False
 
-b_pipeline = strain (orEquals) [1,2,3,4,5] -- [2,4]
+b_pipeline = keep (orEquals) [1,2,3,4,5] -- [2,4]
+
+-- official implementation
+even_o n          =  n `rem` 2 == 0
+odd_o             =  not . even
+
+-- i wrote 
+even' = (\x -> x `mod` 2 == 0 )
