@@ -364,3 +364,20 @@ fixed_lift = liftM (+10) (Just 5) -- 15
 myMapA = Map.fromList[('a', 1), ('b', 2),('c',3)]
 nullChecka = Map.null(myMapA) -- false
 nullCheckb = Map.null(Map.empty) -- True
+
+isMember_a = Map.member 'a' myMapA -- True
+isMember_b = Map.member 'x' myMapA -- False
+
+lookup_a = Map.lookup 'a' myMapA -- Just 1
+lookup_b = Map.lookup 'x' myMapA -- Nothing
+lookForDefault_a = Map.findWithDefault 'x' 1 (Map.fromList [(5,'a'), (3,'b')]) -- 'x'
+lookForDefault_b = Map.findWithDefault 'x' 3 (Map.fromList [(5,'a'), (3,'b')]) -- 'b'
+
+lssthan_a =  Map.lookupLT 3 (Map.fromList [(3,'a'), (5,'b')]) -- Nothing 
+lssthan_b =  Map.lookupLT 4 (Map.fromList [(3,'a'), (5,'b')]) -- Just (3,'a') 
+
+mysingle =  Map.singleton 1 'a' -- fromList [(1,'a')]
+
+-- important to notice that map doesnt work because its only for lists, however fmap does !
+-- mappedMap = map (++ "x") (Map.fromList [(5,"a"), (3,"b")]) -- fromList [(3, "bx"), (5, "ax")]
+mappedMap = fmap (++ "x") (Map.fromList [(5,"a"), (3,"b")]) -- fromList [(3, "bx"), (5, "ax")]
