@@ -381,3 +381,4 @@ mysingle =  Map.singleton 1 'a' -- fromList [(1,'a')]
 -- important to notice that map doesnt work because its only for lists, however fmap does !
 -- mappedMap = map (++ "x") (Map.fromList [(5,"a"), (3,"b")]) -- fromList [(3, "bx"), (5, "ax")]
 mappedMap = fmap (++ "x") (Map.fromList [(5,"a"), (3,"b")]) -- fromList [(3, "bx"), (5, "ax")]
+
