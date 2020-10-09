@@ -12,14 +12,17 @@ sortedString s = sort s
 
 checkAnagram :: String -> String -> Bool
 checkAnagram [] [] = True 
-checkAnagram (x:xs) [] = False 
-checkAnagram [] (y:ys) = False 
+checkAnagram _ [] = False 
+checkAnagram [] _ = False 
 checkAnagram (x:xs) (y:ys) 
   | x == y = checkAnagram xs ys
   | otherwise = False
    -- "    adeefghiiilllmnnorrsty" may want to trim this
 
+sortThenAna :: String -> [Char] -> Bool
 sortThenAna x y = checkAnagram x (sort y)
 
--- anagrams :: String -> p -> [String] -> [String]
-anagrams x = filter (sortThenAna x)
+anagramsFor :: String -> [String] -> [String]
+anagramsFor x = filter (sortThenAna $ sort x)
+
+masters = anagramsFor "master" ["stream", "pigeon", "maters"]
