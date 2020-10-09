@@ -4,6 +4,7 @@ import Data.Semigroup
 import qualified Data.Foldable as F
 import Control.Monad.Writer  
 import Control.Monad.State  
+import Data.Tuple 
 import qualified Data.Map.Lazy as Map
 
 
@@ -382,3 +383,11 @@ mysingle =  Map.singleton 1 'a' -- fromList [(1,'a')]
 -- mappedMap = map (++ "x") (Map.fromList [(5,"a"), (3,"b")]) -- fromList [(3, "bx"), (5, "ax")]
 mappedMap = fmap (++ "x") (Map.fromList [(5,"a"), (3,"b")]) -- fromList [(3, "bx"), (5, "ax")]
 
+traversedWithKey = Map.traverseWithKey (\k v -> if odd k then Just (succ v) else Nothing) (Map.fromList [(1, 'a'), (5, 'e')]) == Just (Map.fromList [(1, 'b'), (5, 'f')])
+
+-- parse error (possibly incorrect indentation or mismatched brackets)
+func a len = len + (length a)
+-- let f a len = len + (length a) in foldr f 0 (Map.fromList [(5,"a"), (3,"bbb")])
+foldeup = foldr func 0 (Map.fromList [(5,"a"), (3,"bbb")])
+
+swapped = swap (1,2) -- (2,1)
