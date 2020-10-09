@@ -30,6 +30,29 @@ keep p (x:xs)
   | p x == True = x : keep p xs
   | otherwise = keep p xs
 
+-- official solution
+
+filter_o :: (a -> Bool) -> [a] -> [a]
+filter_o _pred []    = []
+filter_o pred (x:xs)
+  | pred x         = x : filter pred xs
+  | otherwise      = filter pred xs
+
+  -- communit solutions
+-- notice the implicit truthiness / falsiness
+discard_a _ [] = []
+discard_a p (x : xs) | p x       = discard p xs
+                   | otherwise = x : discard p xs
+keep_a _ [] = []
+keep_a p (x : xs) | p x       = x : keep p xs
+                | otherwise = keep p xs
+
+-- notice the clever use of of not  pred for discard. 
+discard_b :: (a -> Bool) -> [a] -> [a]
+discard_b p = keep (not . p)
+
+keep_b :: (a -> Bool) -> [a] -> [a]
+keep_b p xs = [a | a <- xs, p a]
 
 -- twoOrFour = keep (==2 || ==4)
 
