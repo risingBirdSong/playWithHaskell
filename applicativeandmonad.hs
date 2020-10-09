@@ -4,6 +4,8 @@ import Data.Semigroup
 import qualified Data.Foldable as F
 import Control.Monad.Writer  
 import Control.Monad.State  
+import qualified Data.Map.Lazy as Map
+
 
 
 {-# LANGUAGE TypeFamilies #-}
@@ -358,3 +360,7 @@ seven = getSum (Sum 1 <> Sum 2 <> Sum 4)
 -- broke_example =  fmap (+10) Just 5 error
 fixed_fmap = fmap (+10) (Just 5) -- 15
 fixed_lift = liftM (+10) (Just 5) -- 15
+
+myMapA = Map.fromList[('a', 1), ('b', 2),('c',3)]
+nullChecka = Map.null(myMapA) -- false
+nullCheckb = Map.null(Map.empty) -- True
