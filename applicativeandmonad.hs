@@ -317,3 +317,44 @@ prim_e = runState postincrement 1 -- (1,2)
 
 modified = runState (modify (+1)) 1
 
+type GameValue = Int
+type GameState = (Bool, Int)
+
+playGame :: String -> State GameState GameValue
+playGame []     = do
+    (_, score) <- get
+    return score
+
+playGame (x:xs) = do
+    (on, score) <- get
+    case x of
+         'a' | on -> put (on, score + 1)
+         'b' | on -> put (on, score - 1)
+         'c'      -> put (not on, score)
+         _        -> put (on, score)
+    playGame xs
+
+startState = (False, 0)
+
+main = print $ evalState (playGame "caaacaaacaaa") startState
+
+-- left and right, a more descriptive monad than maybe with a similar concept of either being truthy or falsy
+errorboom = Left "boom" >>= \x -> return (x+1)
+-- workboom = Left 3  >>= \x -> return (x+1) -- Left 3 - interesting it doesnt do the evaluation even though it would work, Left truly is an error path
+workboom = Right 3  >>= \x -> return (x+1) -- Right 3
+huh = Right 3 >>= \x -> return (x + 100)  
+
+strtlst = [1,2,3,4]
+liftedstate =  runState (liftM (+100) pop) strtlst -- (101,[2,3,4])
+
+liftM_ :: (Monad m) => (a -> b) -> m a -> m b  
+liftM_ f m = m >>= (\x -> return (f x))  
+
+-- Sum type
+three = getSum (Sum 1 <> Sum 2) 
+seven = getSum (Sum 1 <> Sum 2 <> Sum 4)
+
+-- ah this broke
+-- broke_example =  fmap (+10) Just 5 error
+fixed_fmap = fmap (+10) (Just 5) -- 15
+fixed_lift = liftM (+10) (Just 5) -- 15
