@@ -27,7 +27,7 @@ strain fn (x:xs)
 -- foldr (.) id 
 
 
-pipeline v = map (==v) [1,2,3]
+a_pipeline v = map (==v) [1,2,3]
 -- pipeline 3 -> [False,False,True]
 
 -- was trying things like 
@@ -36,3 +36,5 @@ orEquals x
   | x == 2 = True
   | x == 4 = True
   | otherwise = False
+
+b_pipeline = strain (orEquals) [1,2,3,4,5] -- [2,4]
