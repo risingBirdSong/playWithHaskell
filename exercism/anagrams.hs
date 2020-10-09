@@ -19,19 +19,15 @@ checkAnagram (x:xs) (y:ys)
   | otherwise = False
    -- "    adeefghiiilllmnnorrsty" may want to trim this
 
-sortThenAna x y = checkAnagram x (sort $ map toLower y)
+sortedAna x y = checkAnagram (sort x) (sort $ map toLower y)
+
+unsortedAna x y = (checkAnagram x  (map toLower y))
 
 anagramsFor :: String -> [String] -> [String]
-anagramsFor x = filter (sortThenAna $ sort $ map toLower x)
+anagramsFor _ [] =[] 
+anagramsFor x (y:ys) 
+  | unsortedAna (map toLower x) y == True = anagramsFor x ys
+  | sortedAna (map toLower x) y == True = y : anagramsFor x ys
+  | otherwise = anagramsFor x ys 
 
-masters = anagramsFor "master" ["stream", "pigeon", "maters"]
-
-orchestra = anagramsFor "orchestra" ["cashregister", "carthorse", "radishes"]
--- orchestra = anagramsFor "Orchestra" ["cashregister", "carthorse", "radishes"]
-
-lowered = map toLower 
-
--- sorteredAndLowered :: [Char] -> [Char]
-sorteredAndLowered x = sort $ map toLower x
-
-carthorse = anagramsFor "orchestra" ["cashregister", "Carthorse", "radishes"]
+removeSameWords = filter (unsortedAna "banana") ["BANANA", "Banana", "banana"] -- []
