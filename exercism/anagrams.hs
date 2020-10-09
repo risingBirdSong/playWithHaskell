@@ -19,8 +19,7 @@ checkAnagram (x:xs) (y:ys)
   | otherwise = False
    -- "    adeefghiiilllmnnorrsty" may want to trim this
 
-sortThenAna :: Ord a => [a] -> [a] -> Bool
-sortThenAna x y = checkAnagram x (sort y)
+sortThenAna x y = checkAnagram x (sort $ map toLower y)
 
 anagramsFor :: String -> [String] -> [String]
 anagramsFor x = filter (sortThenAna $ sort $ map toLower x)
@@ -30,8 +29,9 @@ masters = anagramsFor "master" ["stream", "pigeon", "maters"]
 orchestra = anagramsFor "orchestra" ["cashregister", "carthorse", "radishes"]
 -- orchestra = anagramsFor "Orchestra" ["cashregister", "carthorse", "radishes"]
 
-
 lowered = map toLower 
 
 -- sorteredAndLowered :: [Char] -> [Char]
 sorteredAndLowered x = sort $ map toLower x
+
+carthorse = anagramsFor "orchestra" ["cashregister", "Carthorse", "radishes"]
