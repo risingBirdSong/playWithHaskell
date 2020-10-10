@@ -54,7 +54,14 @@ withoutOn = (==) "abc" $ sort "bca"
 -- cool!
 addOneOn = (+) `on` (+1)
 -- addOn 1 1 -> 4
+on_ = (++) `on` (map (+10))
 
+-- another example with two number lists
+-- on_ [1,2,3] [101, 102, 103] ->[11,12,13,111,112,113]
+
+numArrArr = [[1,2,3] , [4,5,6],  [7,8,9]]
+
+manyAdder = concat . map (map (+10))  
 a_isAnagramOf x y = x /= y && (isGramonymOf x y)
 -- a_isAnagramOf "abc" "abc" -> False
 -- a_isAnagramOf "abc" "cba" -> True
@@ -80,4 +87,9 @@ dot f g = \x -> f (g x)
 
 mycomposed = (+5) `dot` (*2) 
 composed  = (+5) . (*2) 
+
+c_anagramsFor :: String -> [String] -> [String]
+c_anagramsFor = filter . on (==) sortedLetters
+  where sortedLetters = sort . map toLower
+
 
