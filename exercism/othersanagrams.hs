@@ -54,3 +54,12 @@ withoutOn = (==) "abc" $ sort "bca"
 -- cool!
 addOneOn = (+) `on` (+1)
 -- addOn 1 1 -> 4
+
+a_isAnagramOf x y = x /= y && (isGramonymOf x y)
+-- a_isAnagramOf "abc" "abc" -> False
+-- a_isAnagramOf "abc" "cba" -> True
+-- still struggling to understand about that dot , without it filter is applied to few arguments.
+-- my intuition is that the dot with the function is being applied with the first arg, and then filtering
+-- over the remaining [Chars] remaining in list (2nd argument)
+anagramsFor''= filter .  (a_isAnagramOf `on` (map toLower)) 
+-- anagramsFor'' xs xxs = filter .  a_isAnagramOf . xs  xxs
