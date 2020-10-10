@@ -93,3 +93,8 @@ c_anagramsFor = filter . on (==) sortedLetters
   where sortedLetters = sort . map toLower
 
 
+
+desc_a = [10,9..1]
+desc_b x = [x,x-1..1]
+
+-- priming= filter (\x -> x /= []) 
