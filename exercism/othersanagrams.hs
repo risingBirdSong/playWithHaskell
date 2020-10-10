@@ -50,3 +50,7 @@ a_isGramonymOf = (==) . sort
 -- here is a working call without on 
 withoutOn = (==) "abc" $ sort "bca"
 
+
+-- cool!
+addOneOn = (+) `on` (+1)
+-- addOn 1 1 -> 4
