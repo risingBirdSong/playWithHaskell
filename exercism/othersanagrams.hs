@@ -63,3 +63,9 @@ a_isAnagramOf x y = x /= y && (isGramonymOf x y)
 -- over the remaining [Chars] remaining in list (2nd argument)
 anagramsFor''= filter .  (a_isAnagramOf `on` (map toLower)) 
 -- anagramsFor'' xs xxs = filter .  a_isAnagramOf . xs  xxs
+
+dot    :: (b -> c) -> (a -> b) -> a -> c
+dot f g = \x -> f (g x)
+
+mycomposed = (+5) `dot` (*2) 
+composed = (+5) . (*2)
