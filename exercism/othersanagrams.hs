@@ -67,5 +67,8 @@ anagramsFor''= filter .  (a_isAnagramOf `on` (map toLower))
 dot    :: (b -> c) -> (a -> b) -> a -> c
 dot f g = \x -> f (g x)
 
+-- compare the type signature with mycompsed, whatever number we apply, it'll become the a type and the x value which will apply to g value resulting in a b type.  which will then be applied to f and result in a c type.
+
 mycomposed = (+5) `dot` (*2) 
-composed = (+5) . (*2)
+composed  = (+5) . (*2) 
+
