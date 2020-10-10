@@ -100,3 +100,10 @@ dsc x = [x,x-1..1]
 
 -- priming = (\x -> filter (\y -> x (//) y (/=) (\ -> [y,y-1, 1]) ) )
 -- priming = (\x -> filter (\y -> x (//) y (/= [y,y-1, 1])) )
+
+-- question, whats the | syntax in this simple list comprehension? it looks like a guard in pattern matching
+-- answer, its bind for lists...
+listy = [ x | x <- [1..10]]
+filtered y = [ x | x <- [1..10], y + x < 10 ]
+
+comp_a_prime k = [ x | x <- [2..k - 1], k `mod` x == 0]
