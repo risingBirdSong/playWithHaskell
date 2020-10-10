@@ -18,3 +18,35 @@ afactorial =
               n * afactorial (n - 1)
 
 myAFact n = if n == 1 then 1 else n * myAFact (n-1)
+
+-- https://gilmi.me/blog/post/2020/10/01/substitution-and-equational-reasoning
+-- a useful series of evaluations where factorial is called with 3
+
+-- ( \n ->
+--   if n == 1
+--       then
+--           1
+--       else
+--           n * factorial (n - 1)
+-- ) 3
+
+-- 3 * ( \n ->
+--       if n == 1
+--           then
+--               1
+--           else
+--               n * factorial (n - 1)
+--     ) (3 - 1)
+
+
+--     3 * ( 2 * ( \n ->
+--             if n == 1
+--                 then
+--                     1
+--                 else
+--                     n * factorial (n - 1)
+--           ) (2 - 1)
+--     )
+
+--3 * ( 2 * ( 1 ) )
+-- equals 6
