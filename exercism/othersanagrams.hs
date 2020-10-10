@@ -95,6 +95,8 @@ c_anagramsFor = filter . on (==) sortedLetters
 
 
 desc_a = [10,9..1]
-desc_b x = [x,x-1..1]
+dsc x = [x,x-1..1]
 
--- priming= filter (\x -> x /= []) 
+
+-- priming = (\x -> filter (\y -> x (//) y (/=) (\ -> [y,y-1, 1]) ) )
+-- priming = (\x -> filter (\y -> x (//) y (/= [y,y-1, 1])) )
