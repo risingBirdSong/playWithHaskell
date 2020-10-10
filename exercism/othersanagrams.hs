@@ -62,10 +62,19 @@ a_isAnagramOf x y = x /= y && (isGramonymOf x y)
 -- my intuition is that the dot with the function is being applied with the first arg, and then filtering
 -- over the remaining [Chars] remaining in list (2nd argument)
 anagramsFor''= filter .  (a_isAnagramOf `on` (map toLower)) 
--- anagramsFor'' xs xxs = filter .  a_isAnagramOf . xs  xxs
+
+pa_ana = anagramsFor'' "abc"
+-- pa_ana ["cab", "abc"] -> ["cab"]
+
+-- it still seems strange and magical, but comparing the type signature of dot with anagramsFor''
+-- I can see that the dot is partially applying (a_isAnagramOf `on` (map toLower)) with the first 
+-- string they call the function with, which becomes part of filters predicate func and then runs the list of 
+-- words to be filtered. its really cool! 
 
 dot    :: (b -> c) -> (a -> b) -> a -> c
 dot f g = \x -> f (g x)
+
+-- destructedAna  = . (a_isAnagramOf `on` (map toLower))
 
 -- compare the type signature with mycompsed, whatever number we apply, it'll become the a type and the x value which will apply to g value resulting in a b type.  which will then be applied to f and result in a c type.
 
