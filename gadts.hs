@@ -1,17 +1,21 @@
-data Expr = I Int
-          | B Bool           -- boolean constants
-          | Add Expr Expr
-          | Mul Expr Expr
-          | Eq  Expr Expr    -- equality test
+data Expr a = I Int
+            | B Bool
+            | Add (Expr a) (Expr a)
+            | Mul (Expr a) (Expr a)
+            | Eq  (Expr a) (Expr a)
+            deriving (Show, Eq, Ord)
 
-eval :: Expr -> Either Int Bool
-eval (I n) = Left n
-eval (B b) = Right b
-eval (Add e1 e2) = eval e1 + eval e2
-eval (Mul e1 e2) = eval e1 * eval e2
+-- eval :: Expr a -> a
+i :: Int  -> Expr Int 
+i = I
+b :: Bool -> Expr Bool
+b = B
+add' :: Expr Int -> Expr Int -> Expr Int
+add' = Add
+mul' :: Expr Int -> Expr Int -> Expr Int
+mul' = Mul
 
--- this is a problem 
--- eval (B b) = b is an error because the type signrature is returning an Int but this is return a Bool
--- inference doesnt help
+-- i 2 `add'` i 3  ->
+-- Add (I 2) (I 3)
 
--- but now we get in trouble with since we cant add booleans and the type checker complains
+wontTypeCheck = b True `add'` i 5
