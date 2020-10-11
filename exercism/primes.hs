@@ -50,3 +50,10 @@ primes = sieve [2..]
 -- outputs someNumbers = 1 : 2 : 3 : 4 : 5 : 6 : _
 
 -- nthPrime n = primeList !! n
+
+buildingUp :: (Num a, Enum a) => a -> [a]
+buildingUp  p = [p,p+p..]
+standard = buildingUp 1
+byFours = buildingUp 4
+
+multBuild n = [n,n*n..]
