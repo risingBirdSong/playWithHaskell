@@ -21,6 +21,10 @@ dividInts x = x `div` 10
 dividFloats :: Float -> Float
 dividFloats x = x / 10 
 
+-- giveMeInt :: (Num a) => a -> Int
+giveMeInt :: (Double) -> Int
+giveMeInt x = round x
+
 -- d = digs 12345
 -- d !! 4
 -- :sprint d
