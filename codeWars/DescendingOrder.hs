@@ -1,8 +1,6 @@
-import Data.List
-import Control.DeepSeq
+import Data.List as L
 import Debug.Trace
-descendingOrder :: Integer -> Integer
-descendingOrder = error "todo: descendingOrder"
+
 
 -- split the numbers into singletons, sort them and concat them
 
@@ -12,6 +10,13 @@ triala = sort [1,9,8,2,7,3,6,4,5]
 digs :: Int -> [Int]
 digs 0 = []
 digs x = digs (x `div` 10) ++ [x `mod` 10]
+
+fromDigits :: (Num a) => [a] -> a
+fromDigits = foldl addDigit 0
+   where addDigit num d = 10*num + d
+
+descendingOrder x = reverse . sort . digs $ x
+
 shortener 0 = []
 shortener x = shortener (x `div` 10) ++ "<" ++ show (length (show x)) ++ ">"
 demoShortener = shortener 13454354354352345345
