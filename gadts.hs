@@ -18,4 +18,5 @@ mul' = Mul
 -- i 2 `add'` i 3  ->
 -- Add (I 2) (I 3)
 
+-- the previously problematic expression -> no longer type checks! 
 wontTypeCheck = b True `add'` i 5
