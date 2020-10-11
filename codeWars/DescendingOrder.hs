@@ -12,6 +12,14 @@ triala = sort [1,9,8,2,7,3,6,4,5]
 digs :: Int -> [Int]
 digs 0 = []
 digs x = digs (x `div` 10) ++ [x `mod` 10]
+shortener 0 = []
+shortener x = shortener (x `div` 10) ++ "."
+
+dividInts :: Int -> Int
+dividInts x = x `div` 10  
+
+dividFloats :: Float -> Float
+dividFloats x = x / 10 
 
 -- d = digs 12345
 -- d !! 4

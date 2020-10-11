@@ -1,5 +1,7 @@
 import Data.Monoid
 import Data.Foldable
+-- import Control.Lens
+import qualified Data.Char
 a = "hello" <> " world" <> mempty
 b = [1] <> [2] <> mempty
 
@@ -21,3 +23,6 @@ summed = Sum 5 <> Sum 6 <> Sum 3
 -- Go back to the definition I gave.
 
 qbf = fold ["the ", "quick ", "brown ", "fox"]
+
+go c = if Data.Char.isAlpha c then ([c],[]) else ([],[c])
+fgo x = fold $ go <$> x
