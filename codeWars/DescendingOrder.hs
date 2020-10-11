@@ -13,7 +13,9 @@ digs :: Int -> [Int]
 digs 0 = []
 digs x = digs (x `div` 10) ++ [x `mod` 10]
 shortener 0 = []
-shortener x = shortener (x `div` 10) ++ "."
+shortener x = shortener (x `div` 10) ++ "<" ++ show (length (show x)) ++ ">"
+demoShortener = shortener 13454354354352345345
+demoResult = "<1><2><3><4><5><6><7><8><9><10><11><12><13><14><15><16><17><18><19><20>"
 
 dividInts :: Int -> Int
 dividInts x = x `div` 10  
