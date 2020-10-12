@@ -10,6 +10,8 @@ import Data.List
 
 import Data.Foldable
 
+import Data.Maybe (catMaybes)
+
 
 -- import Data.List.genericLength
 
@@ -138,3 +140,7 @@ traversed = traverse fmapped [Just 1, Just 2, Just 3]
 traverseda = traverse (fmap (+1)) [Just 1, Just 2, Just 3]
 -- and what is type of traverse?
 -- (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
+
+myMaybeCat = catMaybes [Just 1, Just 2] -- [1,2]
+myMaybeCata= catMaybes  [Just 1, Just 2, Nothing] -- [1,2]
+
