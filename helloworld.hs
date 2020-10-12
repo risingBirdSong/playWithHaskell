@@ -88,3 +88,45 @@ zipC = zipWith (**) [2.1,2.2..5.0] [5.0,4.9..1.0] --
 -- [40.841010000000004,47.628964105068675,54.48708984819458,61.234029071053605,67.68992608936989,73.68516593572976,79.06796517257521,83.71042267018665,87.51280236188828,90.40597709674667,92.35210000000048,93.34367932254544,93.40131087450607,92.57036860731965,90.91697128694729,88.52353590769029,85.48420198890096,81.90037095523637,77.87655696470087,73.51669471981101,68.92100000000077,64.18343292965673,59.38977440934806,54.616293855592716,49.92896182158642,45.38314400744025,41.02370297173611,36.88542959713919,32.993726959373916,29.365473577200987]
 
 repMuch = replicate 10 5 -- [5,5,5,5,5,5,5,5,5,5]
+
+-- :t null
+-- null :: Foldable t => t a -> Bool
+
+someMaybeNums = [Just 1, Nothing, Just 4, Nothing, Just 6]
+allJustNums = [Just 1, Just 4, Just 6]
+sqcnd = sequence someMaybeNums -- Nothing
+sqcnd_a = sequence allJustNums -- Just [1,4,6]
+-- look at that type !
+-- sequence :: (Traversable t, Monad m) => t (m a) -> m (t a)
+-- and what is a traversable?
+-- Functors representing data structures that can be traversed from
+-- left to right. 
+
+
+mySeq' :: Monad m => [m a] -> m [a]
+mySeq' [] = return []
+mySeq' (m:ms) = do
+    x <- m
+    xs <- mySeq' ms
+    return (x:xs)
+
+sequence' :: Monad m => [m a] -> m [a]
+sequence' [] = return []
+sequence' (m:ms) = do
+  x <- m
+  xs <- sequence' ms
+  return (x:xs)
+
+sqFunc _ [] = []
+sqFunc fn (m:ms) = do
+    x <- (fn m)
+    xs <- sqFunc fn ms
+    return (x:xs)
+
+-- from konsumlamm on this attempt
+-- the function you want to implement is called traverse and it actually doesn need a Monad constraint, Applicative would suffice)
+-- why do you have a Monad and a Functor in there? 
+
+-- fmapped :: (Functor f, Num b) => f b -> f b
+-- fmapped :: (Functor f, N) => f b -> f b
+fmapped m = fmap (+1) m

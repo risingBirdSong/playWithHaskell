@@ -29,3 +29,4 @@ safeDivide x y =
 -- Try dividing by zero
 safe = safeDivide 9 3 -- Success 3.0
 notSafe = safeDivide 11 0 -- DivisionByZero
+
