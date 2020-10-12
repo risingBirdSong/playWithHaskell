@@ -7,6 +7,10 @@ import Control.Monad.RWS
 
 import Data.Monoid
 import Data.List
+
+import Data.Foldable
+
+
 -- import Data.List.genericLength
 
 
@@ -129,4 +133,8 @@ sqFunc fn (m:ms) = do
 
 -- fmapped :: (Functor f, Num b) => f b -> f b
 -- fmapped :: (Functor f, N) => f b -> f b
-fmapped m = fmap (+1) m
+fmapped f = fmap (+1) f
+traversed = traverse fmapped [Just 1, Just 2, Just 3]
+traverseda = traverse (fmap (+1)) [Just 1, Just 2, Just 3]
+-- and what is type of traverse?
+-- (Traversable t, Applicative f) => (a -> f b) -> t a -> f (t b)
