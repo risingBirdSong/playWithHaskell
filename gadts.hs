@@ -1,22 +1,18 @@
-data Expr a = I Int
-            | B Bool
-            | Add (Expr a) (Expr a)
-            | Mul (Expr a) (Expr a)
-            | Eq  (Expr a) (Expr a)
-            deriving (Show, Eq, Ord)
+{-# LANGUAGE GADTs #-}
 
--- eval :: Expr a -> a
-i :: Int  -> Expr Int 
-i = I
-b :: Bool -> Expr Bool
-b = B
-add' :: Expr Int -> Expr Int -> Expr Int
-add' = Add
-mul' :: Expr Int -> Expr Int -> Expr Int
-mul' = Mul
+data Expr a where
+    I   :: Int  -> Expr Int 
+    B   :: Bool -> Expr Bool
+    Add :: Expr Int -> Expr Int -> Expr Int
+    Mul :: Expr Int -> Expr Int -> Expr Int
+    Eq  :: Eq a => Expr a -> Expr a -> Expr Bool
 
--- i 2 `add'` i 3  ->
--- Add (I 2) (I 3)
+eval :: Expr a -> a
+eval (I n) = n
+eval (B b) = b
+eval (Add e1 e2) = eval e1 + eval e2
+eval (Mul e1 e2) = eval e1 * eval e2
+eval (Eq  e1 e2) = eval e1 == eval e2
 
--- the previously problematic expression -> no longer type checks! 
-wontTypeCheck = b True `add'` i 5
+added = eval (I 3) + eval (I 3) -- 6
+added_a = (I 3) `Add` (I 4) -- 7
