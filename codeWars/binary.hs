@@ -2,6 +2,8 @@ import Data.Binary
 import GHC.Float
 import GHC.Float.RealFracMethods
 import Data.List
+import Debug.Trace
+
 -- gotA = get 
 convert :: Double -> Int
 convert x = round x
@@ -52,9 +54,12 @@ foldRMinus = foldr (-) 0 [1,2,3,4] -- -2
 remakeToNumber :: [Int] -> Int 
 remakeToNumber = foldl f 0 
   where f acc x = 2 * acc + x
-  
+
 remakeToNumberLetIn :: [Int] -> Int
 remakeToNumberLetIn = let f acc c = 2*acc+c in foldl f 0
 
 remakeToNumberLambda :: [Int] -> Int
 remakeToNumberLambda = foldl (\acc x -> 2*acc+x) 0 
+
+-- Some functions only work one way:
+-- foldr (:) :: [a] -> [a] -> [a] but foldl (:) is nonsense
