@@ -18,6 +18,7 @@ toNumber' = foldl f 0
   where f acc n = 2*acc+n
 
 foldLMinus = foldl (-) 0 [1,2,3,4] -- -10
+-- [1,0,0,0]
 foldRMinus = foldr (-) 0 [1,2,3,4] -- -2
 -- remakeToNumber = foldr 
 
