@@ -10,7 +10,7 @@ import Data.List
 
 import Data.Foldable
 
-import Data.Maybe (catMaybes)
+import Data.Maybe
 
 
 -- import Data.List.genericLength
@@ -144,3 +144,35 @@ traverseda = traverse (fmap (+1)) [Just 1, Just 2, Just 3]
 myMaybeCat = catMaybes [Just 1, Just 2] -- [1,2]
 myMaybeCata= catMaybes  [Just 1, Just 2, Nothing] -- [1,2]
 
+justTestA = isJust $ Just 3 -- True
+justTestB = isJust $ Nothing -- False
+
+nothingTestA = isNothing (Just 3) -- False
+nothingTestB = isNothing (Nothing) --True
+
+
+-- but this isnt a safe method to use cuz look it can easily result in error
+myFromJust Nothing =  error "Maybe.fromJust: Nothing"
+myFromJust (Just x) = x
+-- myFromJust (Just 4) -> 4
+fromJustA = fromJust $ Just 3 -- A
+
+-- from maybe safer method
+
+fromMaybeTestA = fromMaybe 0 (Just 4)
+fromMaybeTestB = fromMaybe "voidness" (Just "im something")
+
+myCatMaybs ls = [x | Just x <- ls]
+
+catMaybeTestA = catMaybes [Just 2, Just 5, Nothing, Just 9] -- [2,5,9]
+
+
+myMapMaybes _ [] = []
+myMapMaybes f (x:xs) 
+    | (f x) == Nothing = myMapMaybes f xs
+    | otherwise = (f x) : myMapMaybes f xs
+
+-- myMapMaybes (fmap (+1)) [Just 5, Just 7, Nothing]
+-- [Just 6,Just 8]
+
+mapMaybeTest = mapMaybe (fmap (+1)) [Just 5, Just 15, Nothing, Just 99] -- [6,16,100]

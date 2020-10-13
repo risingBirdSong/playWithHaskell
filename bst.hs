@@ -40,6 +40,7 @@ layoutTree Empty = []  -- wow, that was easy
 layoutTree (Node here left right) 
          = indent (layoutTree left) ++  [show here]  ++ indent (layoutTree right)
 
+
 prettyPrint t = unlines . layoutTree $ t
 -- https://stackoverflow.com/questions/19082560/haskell-pretty-print-binary-tree-not-displaying-properly
 -- *Main> putStrLn (prettyPrint testTree) 
@@ -57,3 +58,5 @@ prettyPrint t = unlines . layoutTree $ t
 --     70
 --       80
 --         90
+
+
