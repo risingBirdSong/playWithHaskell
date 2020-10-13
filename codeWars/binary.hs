@@ -15,5 +15,6 @@ toNumber' :: [Int] -> Int
 toNumber' = foldl f 0
   where f acc n = 2*acc+n
 
-foldLtrsLeft = foldl (++) "" ["a","b","c"] 
-foldLtrsRight = foldr (++) "" ["a","b","c"] 
+foldLMinus = foldl (-) 0 [1,2,3,4] -- -10
+foldRMinus = foldr (-) 0 [1,2,3,4] -- -2
+-- remakeToNumber = foldr 
