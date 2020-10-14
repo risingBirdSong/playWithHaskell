@@ -1,4 +1,4 @@
-import GHC.Base
+import GHC.Base (build)
 type Matrix= [[Int]]
 type Pos = (Int,Int)
 testMatrix :: (Enum t, Num t, Num a) => p -> t -> [[a]]
@@ -32,3 +32,25 @@ chunksOf i ls = map (take i) (build (splitter ls)) where
 matrixOf n = [[x + n * (y - 1) | x <- [1..n]] | y <- [1..n]]
 
 mtrx n = zipWith (fmap . (+)) [0,n..] $ replicate n [1..n]
+
+
+strdata = ['m', 'y', 'e', 'x', 'a', 'm', 'p', 'l', 'e']
+
+strMtrx = [["m", "y", "e"],["x", "a", "m"], ["p", "l", "e"]]
+charMtrx = [['m', 'y', 'e'],['x', 'a', 'm'], ['p', 'l', 'e']]
+
+
+makeMeal = gather [0,2,4,7] strdata -- "meal"
+
+-- solve mtx idxs = gather idxs "myexample"
+
+-- strs mtx = (concat . fltMtrx mtx ) []
+fltMtrx :: Foldable t => [t a] -> [a] -> [[a]]
+fltMtrx [] [] = []
+fltMtrx (xs:xxs) acc = foldr (:) acc xs : fltMtrx (xxs) acc  
+
+gather [] strs = [] 
+gather (id:idxs) strs = (strs !! id) : gather idxs strs
+gridIndex :: [[Char]] -> [Int] -> String
+gridIndex mtx idxs = gather (map (+(-1)) idxs) strs 
+  where strs = (concat . fltMtrx mtx) []
