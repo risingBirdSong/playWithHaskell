@@ -188,10 +188,14 @@ negater :: (Functor f, Num b) => [f b] -> [f b]
 negater xs = map (fmap negate) xs
 
 -- why does removing xs in the following negater' (compare to negater) make haskell unable to infer type?
+-- the reason for this is because of Monomorphism restriction Thanks to ednob for the intro.
 -- negater' = map (fmap negate)
 -- Ambiguous type variable ‘f0’ arising from a use of ‘fmap’
 -- prevents the constraint ‘(Functor f0)’ from being solved.
 -- Relevant bindings include
 
 
+
 -- see if list of strings contain given chars
+
+-- sngle_contain str c = 
