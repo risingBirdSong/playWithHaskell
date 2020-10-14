@@ -198,4 +198,8 @@ negater xs = map (fmap negate) xs
 
 -- see if list of strings contain given chars
 
--- sngle_contain str c = 
+filtering xs c = filter (==c) xs -- "oo"
+
+contains y xs = any (==y) xs
+
+listContains xxs y = map (contains y) xxs
