@@ -48,9 +48,33 @@ makeMeal = gather [0,2,4,7] strdata -- "meal"
 fltMtrx :: Foldable t => [t a] -> [a] -> [[a]]
 fltMtrx [] [] = []
 fltMtrx (xs:xxs) acc = foldr (:) acc xs : fltMtrx (xxs) acc  
+-- all this can be replaced by concat mtrx
+-- concat charMtrx 
+-- "myexample"
 
 gather [] strs = [] 
 gather (id:idxs) strs = (strs !! id) : gather idxs strs
 gridIndex :: [[Char]] -> [Int] -> String
 gridIndex mtx idxs = gather (map (+(-1)) idxs) strs 
   where strs = (concat . fltMtrx mtx) []
+
+gridIndex' :: [[Char]] -> [Int] -> String
+gridIndex' = (!!!) . concat
+
+(!!!) = map . (!!-)
+  where (!!-) xs = (xs !!) . pred
+
+-- wow truly brilliant answer!
+gridIndex'' :: [[Char]] -> [Int] -> String
+gridIndex'' grid idxs = let flat = concat grid
+                      in map ((flat !!) . subtract 1) idxs
+rmk_gI'' :: [[Char]] -> [Int] -> String
+rmk_gI'' grid idxs = let flat = concat grid
+                    in map ((flat !!) . subtract 1) idxs 
+
+gridIndex''' :: [[Char]] -> [Int] -> String
+gridIndex''' xs l = map (\n->concat xs!!(n-1)) l
+
+rmk_gI''' :: [[Char]] -> [Int] -> String
+rmk_gI''' mtrx idxs = map (\n -> concat mtrx!!(n-1)) idxs
+
