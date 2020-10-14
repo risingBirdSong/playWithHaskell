@@ -1,4 +1,5 @@
 import GHC.Base (build)
+
 type Matrix= [[Int]]
 type Pos = (Int,Int)
 testMatrix :: (Enum t, Num t, Num a) => p -> t -> [[a]]

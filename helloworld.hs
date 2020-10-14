@@ -176,3 +176,22 @@ myMapMaybes f (x:xs)
 -- [Just 6,Just 8]
 
 mapMaybeTest = mapMaybe (fmap (+1)) [Just 5, Just 15, Nothing, Just 99] -- [6,16,100]
+
+anyEvens = any (even) [1,3,5,7,8] -- True
+allEvens = all (even) [1,3,5,7,8] -- False
+
+
+anyTrue = any ((==) True) [False, False, True] --True
+allTrue = all ((==) True) [False, False, True] --False
+-- negat list of maybe numbers
+negater :: (Functor f, Num b) => [f b] -> [f b]
+negater xs = map (fmap negate) xs
+
+-- why does removing xs in the following negater' (compare to negater) make haskell unable to infer type?
+-- negater' = map (fmap negate)
+-- Ambiguous type variable ‘f0’ arising from a use of ‘fmap’
+-- prevents the constraint ‘(Functor f0)’ from being solved.
+-- Relevant bindings include
+
+
+-- see if list of strings contain given chars
