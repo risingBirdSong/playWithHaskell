@@ -49,3 +49,8 @@ lrgst [] = Nothing
 lrgst xs = Just (head (reverse $ sort xs))
 
 maxed strt xs = foldr max strt xs
+
+max' [] c = c 
+max' (x:xs) c
+  | x >= c = max' xs x
+  | x < c = max' xs c 
