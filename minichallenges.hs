@@ -1,4 +1,5 @@
 import qualified Data.Tree as T
+import Data.List
 -- see if list of strings contain given chars
 filtering xs c = filter (==c) xs -- "oo"
 
@@ -42,3 +43,9 @@ makeAndShow = putStr $ T.drawTree $ fmap show $ T.unfoldTree buildNode 1
 --    +- 6
 --    |
 --    `- 7
+
+
+lrgst [] = Nothing
+lrgst xs = Just (head (reverse $ sort xs))
+
+maxed strt xs = foldr max strt xs
